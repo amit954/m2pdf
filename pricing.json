@@ -1,0 +1,23 @@
+{
+    "plans": {
+      "free": {
+        "name": "Free Plan",
+        "price": 0,
+        "features": ["Basic Features"]
+      },
+      "lifetime": {
+        "name": "Lifetime Plan",
+        "price": 99.99,
+        "discountedPrice": 49.99,
+        "discountPercentage": 50,
+        "features": ["All Features", "Lifetime Access", "Future Updates"]
+      }
+    },
+    "offer": {
+      "name": "Launch Offer - Save 50%",
+      "tagline": "🎉 Limited Time Offer!",
+      "endDate": "2024-12-31",
+      "isActive": true
+    },
+    "lastUpdated": "2024-12-23"
+  }
