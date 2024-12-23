@@ -7,14 +7,14 @@
       },
       "lifetime": {
         "name": "Lifetime Plan",
-        "price": 99.99,
-        "discountedPrice": 49.99,
+        "price": 69.99,
+        "discountedPrice": 34.99,
         "discountPercentage": 50,
         "features": ["All Features", "Lifetime Access", "Future Updates"]
       }
     },
     "offer": {
-      "name": "Launch Offer - Save 50%",
+      "name": "Xmas Offer - Save 50%",
       "tagline": "🎉 Limited Time Offer!",
       "endDate": "2024-12-31",
       "isActive": true
