@@ -31,10 +31,12 @@
     
     <!-- Your CSS -->
     <link href="/css/style.css" rel="stylesheet">
+    
+    
 </head>
 <body>
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top ">
     <div class="container">
         <a class="navbar-brand" href="/">
             <img src="/img/logo.svg" width="40" alt="m2pdf logo"/>
@@ -54,14 +56,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/#pricing">Pricing</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/#faq">FAQ</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Tools
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/eml-to-pdf-converter">Eml to PDF Converter</a></li>
+                    </ul>
+                  </li>
                 <li class="nav-item">
                     <a class="btn btn-primary ms-lg-3 m2pdf-cta" href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae">
                         <i class="bi bi-download"></i> Install Extension
                     </a>
                 </li>
+  
             </ul>
         </div>
     </div>
@@ -385,9 +393,9 @@
                 </div>
             </div>
         </div>
-    </section>  <!-- Remove the | safe filter -->
+    </section> 
     
-    <footer class="py-5 bg-dark text-white">
+    <footer class="py-5 bg-dark text-white ">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 mb-4 mb-lg-0">
@@ -399,6 +407,7 @@
                     <li class="mb-2"><a href="/about" class="text-decoration-none">About</a></li>
                     <li class="mb-2"><a href="/pricing" class="text-decoration-none">Pricing</a></li>
                     <li class="mb-2"><a href="/contact" class="text-decoration-none">Contact</a></li>
+                    <li class="mb-2"><a href="/eml-to-pdf-converter" class="text-decoration-none">Eml to PDF Converter</a></li>
                 </ul>
             </div>
             <div class="col-lg-4">
@@ -429,5 +438,6 @@
     <!-- Your Scripts -->
     <script src="/js/fonts.js"></script>
     <script src="/js/script.js"></script>
+    
 </body>
 </html>
