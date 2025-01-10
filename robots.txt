@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://m2pdf.com/sitemap.xml
