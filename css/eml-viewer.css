@@ -131,6 +131,9 @@
         margin-bottom: 1rem;
     }
 
+    #email-display {
+        scroll-margin-top: 100px;
+    }
     @media print {
         .no-print {
             display: none !important;
