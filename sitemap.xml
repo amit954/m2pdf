@@ -6,42 +6,47 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
   <loc>https://m2pdf.com/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/about/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/pricing/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/contact/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://m2pdf.com/how-to-use/</loc>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/terms/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/privacy/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/refund/</loc>
-  <lastmod>2025-01-10T15:26:09+00:00</lastmod>
+  <lastmod>2025-01-13T07:02:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 </urlset>
