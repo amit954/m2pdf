@@ -319,8 +319,7 @@ footer a {
     .navbar-toggler {
         border-color: var(--bs-primary);
         color: var(--bs-primary);
-
-        padding: 0.5rem 0.75rem;
+        padding: 0.4rem 0.65rem;
         border-radius: 8px;
     }
 
