@@ -289,6 +289,67 @@ footer a {
     }
 }
 
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: rgba(255, 255, 255, .98);
+        margin: 1rem -1rem -1.5rem;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled .navbar-collapse {
+        background: none;
+        margin: 0.5rem -1rem -1rem;
+        box-shadow: none;
+    }
+
+
+    .dropdown-menu {
+        background: transparent;
+        border: none;
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-item {
+        padding: 0.5rem 0;
+    }
+
+
+    .navbar-toggler {
+        border-color: var(--bs-primary);
+        color: var(--bs-primary);
+
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 2px var(--bs-purple-light);
+    }
+
+
+    .nav-link {
+        color: #374151 !important;
+        font-family: var(--font-body);
+    }
+
+    .dropdown-item {
+        color: #374151;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .dropdown-menu {
+        background: rgba(255, 255, 255, .98);
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem;
+    }
+}
+
 .chrome-store-btn {
     font-weight: 500;
     background: #fff;
