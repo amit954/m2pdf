@@ -37,7 +37,6 @@ h6,
 .display-5 {
     font-family: var(--font-heading);
     font-weight: 700;
-    letter-spacing: -.03em;
     line-height: 1.2
 }
 
@@ -370,3 +369,49 @@ footer a {
 .navbar-nav .btn:hover {
     text-decoration: none;
 }
+
+.post-image{
+    letter-spacing: .01em;
+}
+.post-image a{
+    color: var(--bs-secondary-color);
+}
+
+.content{
+    color: #1A1A1A;
+}
+
+.image-attribution, .image-attribution a{
+    color: #a6a6a6;
+}
+.content p,
+.content code,
+.content li,
+.content a {
+    letter-spacing: .02em;
+    font-size: 1.15rem;
+    line-height: 1.8rem;
+    color: #1A1A1A;
+}
+
+
+.content h4{
+    margin-top: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.content h2{
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.go-back a {
+    color: #3e3e3e;
+    text-decoration: none;
+}
+
+
+.go-back a:hover{
+    text-decoration: underline;
+}
+
