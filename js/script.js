@@ -29,31 +29,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function updatePricingUI(pricing) {
   const lifetimePlan = pricing.plans.lifetime;
+  const annualPlan = pricing.plans.annual;
   const offer = pricing.offer;
  
-  // Debug logs
-  console.log('Offer data:', offer);
-  console.log('Is offer active?', offer.isActive);
 
   // Let's check if elements exist first
   const elements = {
       regularPrice: document.querySelector('.regular-price'),
+      regularPriceAnnual: document.querySelector('.regular-price-annual'),
       discountedPrice: document.querySelector('.discounted-price'),
+      discountedPriceAnnual: document.querySelector('.discounted-price-annual'),
       offerName: document.querySelector('.offer-name'),
       offerTagline: document.querySelector('.offer-tagline')
   };
 
-  // Debug log to see which elements are found
-  console.log('Found elements:', {
-      regularPrice: !!elements.regularPrice,
-      discountedPrice: !!elements.discountedPrice,
-      offerName: !!elements.offerName,
-      offerTagline: !!elements.offerTagline
-  });
-
-  // Update only if elements exist
-  if (elements.regularPrice) elements.regularPrice.textContent = `$${lifetimePlan.price}`;
+  if (elements.regularPrice) elements.regularPrice.textContent = `$${lifetimePlan.price}`
   if (elements.discountedPrice) elements.discountedPrice.textContent = `$${lifetimePlan.discountedPrice}`;
+  if (elements.regularPriceAnnual) elements.regularPriceAnnual.textContent = `$${annualPlan.price}`;
+  if (elements.discountedPriceAnnual) elements.discountedPriceAnnual.textContent = `$${annualPlan.discountedPrice}`;
  
   if (offer.isActive) {
       if (elements.offerName) elements.offerName.textContent = offer.name;

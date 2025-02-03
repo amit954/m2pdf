@@ -10,14 +10,14 @@
         "price": 99.99,
         "discountedPrice": 49.99,
         "discountPercentage": 50,
-        "features": ["All Features", "Lifetime Access", "Future Updates"]
+        "features": ["Unlimited conversions", "Lifetime updates"]
       },
       "lifetime": {
         "name": "Lifetime Plan",
         "price": 159.99,
         "discountedPrice": 79.99,
         "discountPercentage": 50,
-        "features": ["All Features", "Lifetime Access", "Future Updates"]
+        "features": ["All Features", "One-time payment", "Lifetime updates"]
       }
     },
     "offer": {
