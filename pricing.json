@@ -8,14 +8,14 @@
       "annual": {
         "name": "Annual Plan",
         "price": 99.99,
-        "discountedPrice": 49.99,
+        "discountedPrice": 0.025,
         "discountPercentage": 50,
         "features": ["Unlimited conversions", "Lifetime updates"]
       },
       "lifetime": {
         "name": "Lifetime Plan",
         "price": 159.99,
-        "discountedPrice": 79.99,
+        "discountedPrice": 0.025,
         "discountPercentage": 50,
         "features": ["All Features", "One-time payment", "Lifetime updates"]
       }
