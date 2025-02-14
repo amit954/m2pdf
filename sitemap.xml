@@ -6,57 +6,62 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
   <loc>https://m2pdf.com/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/blog/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/about/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/pricing/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/contact/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/how-to-use/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/terms/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/privacy/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/refund/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://m2pdf.com/blog/ultimate-guide-to-email-documentation-for-tax-audits/</loc>
-  <lastmod>2025-02-01T19:34:53+00:00</lastmod>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://m2pdf.com/blog/how-to-save-emails-as-pdf/</loc>
+  <lastmod>2025-02-14T14:02:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 </urlset>
