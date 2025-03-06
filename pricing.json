@@ -1,30 +1,30 @@
 {
-    "plans": {
-      "free": {
-        "name": "Free Plan",
-        "price": 0,
-        "features": ["Basic Features"]
-      },
-      "annual": {
-        "name": "Annual Plan",
-        "price": 99.99,
-        "discountedPrice": 49.99,
-        "discountPercentage": 50,
-        "features": ["Unlimited conversions", "Lifetime updates"]
-      },
-      "lifetime": {
-        "name": "Lifetime Plan",
-        "price": 159.99,
-        "discountedPrice": 79.99,
-        "discountPercentage": 50,
-        "features": ["All Features", "One-time payment", "Lifetime updates"]
-      }
+  "plans": {
+    "free": {
+      "name": "Free Plan",
+      "price": 0,
+      "features": ["Basic Features"]
     },
-    "offer": {
-      "name": "Launch Offer - Save 50%",
-      "tagline": "🎉 Limited Time Offer!",
-      "endDate": "2025-03-31",
-      "isActive": true
+    "annual": {
+      "name": "Annual Plan",
+      "price": 99.99,
+      "discountedPrice": 49.99,
+      "discountPercentage": 50,
+      "features": ["Unlimited conversions", "Lifetime updates"]
     },
-    "lastUpdated": "2025-03-01"
-  }
+    "lifetime": {
+      "name": "Lifetime Plan",
+      "price": 159.99,
+      "discountedPrice": 79.99,
+      "discountPercentage": 50,
+      "features": ["All Features", "One-time payment", "Lifetime updates"]
+    }
+  },
+  "offer": {
+    "name": "Launch Offer - Save 50%",
+    "tagline": "🎉 Limited Time Offer!",
+    "endDate": "2025-03-31",
+    "isActive": true
+  },
+  "lastUpdated": "2025-03-01"
+}
