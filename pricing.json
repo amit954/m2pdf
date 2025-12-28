@@ -8,7 +8,7 @@
     "annual": {
       "name": "Annual Plan",
       "price": 99.99,
-      "discountedPrice": 49.99,
+      "discountedPrice": 0.9,
       "discountPercentage": 50,
       "features": ["Unlimited conversions", "Lifetime updates"]
     },
