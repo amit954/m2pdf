@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and Convert eml files to PDF locally and securely for free. Read eml files without any software in your web browser.">
+    <title>Free EML to PDF Converter | m2pdf</title>
+    <link rel="canonical" href="https://m2pdf.com/eml-to-pdf-converter/" />
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="M2pdf" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+        
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Free EML to PDF Converter">
+    <meta property="og:description" content="View and Convert eml files to PDF locally and securely for free. Read eml files without any software in your web browser.">
+    <meta property="og:image" content="https://m2pdf.com/img/m2pdf_og_img.jpg">
+    
+    
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free EML to PDF Converter">
+    <meta name="twitter:description" content="View and Convert eml files to PDF locally and securely for free. Read eml files without any software in your web browser.">
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link href="/css/style.css" rel="stylesheet">
+    
+        
+        <link rel="stylesheet" href="/css/eml-viewer.css">
+        
+    
+    
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2NFQ4Q1DM2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2NFQ4Q1DM2');
+</script>
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-lg fixed-top no-print">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.svg" width="40" alt="m2pdf logo"/>
+            m2pdf
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#pricing">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Free Tools
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Eml to PDF Converter</a></li>
+                    </ul>
+                  </li>
+
+                  
+  
+            </ul>
+        </div>
+    </div>
+</nav>
+    
+    
+
+<div class="container" style="margin-top: 150px;">
+
+    <div id="drop-zone" class="text-center no-print">
+        <div class="cloud-icon">
+            <i class="bi bi-cloud-arrow-up"></i>
+        </div>
+        <p class="h6 text-secondary mb-2">Drop the EML file here</p>
+        <p class="text-secondary mb-2">or</p>
+        <button class="btn btn-primary browse-files-btn mb-2">Browse Files</button>
+    </div>
+
+    <div class="alert alert-danger error no-print" id="error-message" style="display: none;"></div>
+
+<div id="email-display" style="display: none;">
+    <div class="card">
+        <div class="no-page-break">
+            <div class="email-header">
+                <div class="header-actions no-print">
+                    <button id="print-button" class="btn btn-danger btn-sm">
+                        <i class="bi bi-printer me-1"></i>Print / Save PDF
+                    </button>
+                </div>
+                <h2 class="email-subject" id="email-subject"></h2>
+                <div class="email-metadata">
+                    <div class="metadata-row">
+                        <span class="metadata-label">From: </span>
+                        <span class="metadata-content" id="email-from"></span>
+                    </div>
+                    <div class="metadata-row">
+                        <span class="metadata-label">To: </span>
+                        <span class="metadata-content" id="email-to"></span>
+                    </div>
+                    <div class="metadata-row" id="cc-container" style="display: none;">
+                        <span class="metadata-label">CC: </span>
+                        <span class="metadata-content" id="email-cc"></span>
+                    </div>
+                    <div class="metadata-row" id="bcc-container" style="display: none;">
+                        <span class="metadata-label">BCC: </span>
+                        <span class="metadata-content" id="email-bcc"></span>
+                    </div>
+                    <div class="metadata-row">
+                        <span class="metadata-label">Date: </span>
+                        <span class="metadata-content" id="email-date"></span>
+                    </div>
+                    <div class="metadata-row" id="reply-to-container" style="display: none;">
+                        <span class="metadata-label">Reply-To: </span>
+                        <span class="metadata-content" id="email-reply-to"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="email-content" id="email-content"></div>
+        </div>
+
+        <div class="attachments-section" id="attachments-section" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="mb-0">Attachments</h6>
+                <button id="download-all" class="btn btn-link text-decoration-none p-0 no-print" style="display: none;">
+                    <i class="bi bi-download me-1"></i>Download All
+                </button>
+            </div>
+            <div id="attachments-list"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container py-5 mt-5 no-print">
+    <div class="row">
+        <div class="col-12">
+          
+                <div class="card-body">
+                    <h1 class="mb-4">Free EML to PDF Converter</h1>
+                    <p>Need to convert email files to PDF? Our free online tool helps you open and convert EML files to PDF right in your browser. EML files are email messages exported from popular email clients like Outlook, Gmail, Apple Mail, Thunderbird. Eml file contains everything from your email - the message, attachments, sender details, and even formatting.</p>
+
+                    <div class="alert alert-info mt-4">
+                        <i class="bi bi-lightbulb me-2"></i>
+                        Using Gmail? Try our <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" class="alert-link" target="_blank">M2PDF Chrome Extension</a> to convert Gmail emails to PDF locally in your browser!
+                    </div>
+
+                    <h2 class="h4 mb-3 mt-4">Convert EML to PDF Without Installing Software</h2>
+                    <p>Simply drag and drop your .eml file onto our converter. Your email will instantly display in the browser, preserving all formatting and attachments. One click on the 'Print / Save PDF' button creates a perfect PDF copy of your email. It's that easy!</p>
+
+                    <p>Unlike other converters, our tool runs entirely in your web browser. There's nothing to download or install, and your emails never leave your device - perfect for handling sensitive information.</p>
+
+                    <h2 class="h4 mb-3 mt-4">Who Uses Our EML Converter?</h2>
+                    <ul class="mb-4">
+                        <li><strong>Legal Professionals</strong> - Create PDF copies of emails</li>
+                        <li><strong>Business Users</strong> - Archive important client communications and business correspondence</li>
+                        <li><strong>IT Administrators</strong> - Convert exported emails to PDF for documentation</li>
+                        <li><strong>Individual Users</strong> - Save personal emails in PDF format for long-term storage</li>
+                    </ul>
+
+                    <h2 class="h4 mb-3">Secure and Private</h2>
+                    <p class="mb-4">We take your privacy seriously. Our converter processes everything locally in your browser - your emails never touch our servers.</p>
+                </div>
+        </div>
+    </div>
+</div> 
+    
+    <footer class="py-5 bg-dark text-white no-print">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                
+                <a href="/">
+                    <h5 class="mb-3">m2pdf</h5>
+                </a>
+                
+                <p class="">Save your important emails locally with our secure Chrome extension.</p>
+            </div>
+            <div class="col-lg-2 mb-4 mb-lg-0">
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/about/" class="text-decoration-none">About</a></li>
+                    <li class="mb-2"><a href="/pricing/" class="text-decoration-none">Pricing</a></li>
+                    <li class="mb-2"><a href="/contact/" class="text-decoration-none">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 mb-4 mb-lg-0">
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/blog/" class="text-decoration-none">Blog</a></li>
+                    <li class="mb-2"><a href="/how-to-use/" class="text-decoration-none">How to Use</a></li>
+                    <li class="mb-2"><a href="/eml-to-pdf-converter/" class="text-decoration-none">Eml to PDF Converter</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="mb-3">Install M2pdf Extension</h5>
+                <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" target="_blank" class="chrome-store-btn bg-white d-inline-flex align-items-center">
+                    <img src="/img/chrome-logo.svg" alt="Chrome" width="24" height="24">
+                    Add to Chrome - It's Free
+                </a>
+            </div>
+        </div>
+    
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">© <span id="year"></span> m2pdf. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="/terms/" class="text-decoration-none me-3">Terms</a>
+                <a href="/privacy/" class="text-decoration-none me-3">Privacy</a>
+                <a href="/refund/" class="text-decoration-none">Refund</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/js/fonts.js"></script>
+    <script src="/js/script.js"></script>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        
+        <script src="/js/emlViewer.js"></script>
+        
+    
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6d6959c68fc5406ba5ae93427cca6f91"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
