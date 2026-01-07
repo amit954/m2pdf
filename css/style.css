@@ -479,3 +479,13 @@ footer a {
     text-decoration: underline;
 }
 
+
+.trusted-logos img {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+    max-height: 100px;
+    width: auto;
+    object-fit: contain;
+}
+
