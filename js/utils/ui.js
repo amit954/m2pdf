@@ -1,0 +1,1 @@
+(()=>{var s=class{static showMessage(t,a){let e=document.getElementById("message");e.textContent=t,e.className=`alert alert-${a==="error"?"danger":"success"}`,e.style.display="block",setTimeout(()=>e.style.display="none",3e3)}};})();

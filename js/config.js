@@ -1,0 +1,1 @@
+(()=>{var e={pdfjs:{workerSrc:"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js",renderingQueue:{viewsPerQueue:10,cacheExpirationTime:3e4},webGLOptions:{enableWebGL:!0,maxTextureSize:8192,imageRendering:!0}},zoom:{min:.1,max:10,default:1,renderDelay:50,smoothSteps:5},rendering:{progressive:!0,preload:!0,preloadPages:2,viewportMargin:2}},r=e;})();

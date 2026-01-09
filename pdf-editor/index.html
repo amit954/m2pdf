@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Editor</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <style>
+        :root {
+    --dock-bg: rgba(30, 30, 30, 0.85);
+    --dock-border: rgba(255, 255, 255, 0.1);
+    --accent: #3b82f6;
+    --text: #e5e5e5;
+    --bg-dark: #525659;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.top-toolbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    z-index: 2000;
+}
+
+.tool-group {
+    background: var(--dock-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 6px 8px;
+    border-radius: 14px;
+    border: 1px solid var(--dock-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.divider-vertical {
+    width: 1px;
+    height: 24px;
+    background: var(--dock-border);
+    margin: 0 4px;
+}
+
+#file-input { display: none; }
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.icon-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.icon-btn.active {
+    background: #666;
+    color: white;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.icon-btn.success { color: #4ade80; }
+.icon-btn.success:hover:not(:disabled) { 
+    background: rgba(74, 222, 128, 0.15); 
+    color: #4ade80;
+}
+
+.icon-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.icon-btn.sm {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+}
+
+#zoom-level {
+    font-size: 0.8rem;
+    color: #aaa;
+    font-weight: 600;
+    min-width: 45px;
+    text-align: center;
+    user-select: none;
+}
+
+.icon-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #000;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    margin-top: 8px;
+}
+.icon-btn::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    margin-top: -2px;
+}
+.icon-btn:hover::after, .icon-btn:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+
+.pdf-container {
+    position: fixed;
+    top: 0;        
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #666;
+    overflow: auto;
+    display: block; 
+    padding-top: 80px; 
+}
+
+.pages-wrapper {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content; 
+    padding: 20px;
+    box-sizing: border-box;
+
+    margin: 0; 
+    transform-origin: 0 0; 
+
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translateZ(0);
+
+    opacity: 0;
+}
+
+.pages-wrapper.loaded {
+    opacity: 1;
+}
+
+.page-container {
+    position: relative;
+    background: white;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: fit-content;
+    display: block;
+    justify-content: center;
+}
+
+.page-container canvas {
+    display: block;
+    max-width: none;
+}
+
+.canvas-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.image-annotation {
+    position: absolute;
+    outline: 1.5px solid transparent;
+    cursor: move;
+    min-width: 50px;
+    user-select: none;
+    transform-origin: center center;
+}
+.image-annotation:hover { outline-color: var(--accent); }
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.image-annotation:hover .resize-handle { opacity: 1; }
+
+.image-annotation img {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    object-fit: contain;
+}
+
+.image-annotation .delete-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: none;
+    padding: 0;
+    line-height: 1;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+}
+.image-annotation:hover .delete-btn { display: flex; }
+
+.image-annotation .bg-toggle-btn {
+    position: absolute;
+    top: -10px;
+    right: 15px; 
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: none;
+    padding: 0;
+    line-height: 1;
+    z-index: 10;
+    font-size: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.image-annotation:hover .bg-toggle-btn { display: flex; }
+
+.image-annotation .bg-toggle-btn.active { background: #198754; }
+
+.image-annotation img.transparent-bg {
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    background-color: transparent !important;
+}
+
+.image-annotation .threshold-slider-container {
+    position: absolute;
+    left: -40px; top: 50%;
+    transform: translateY(-50%);
+    height: 120px; width: 30px;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    padding: 5px 0;
+}
+.image-annotation .threshold-slider-container::after {
+    content: '';
+    position: absolute;
+    right: -10px; top: 0;
+    width: 10px; height: 100%;
+    background: transparent;
+}
+.image-annotation .threshold-slider {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    width: 100px; height: 20px;
+    background: transparent;
+    cursor: pointer;
+}
+.image-annotation.show-threshold:hover .threshold-slider-container,
+.image-annotation.show-threshold .threshold-slider-container:hover { display: flex; }
+
+#message {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    background: #10b981;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 2000;
+}
+
+canvas {
+    display: block;
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.text-annotation {
+    position: absolute;
+    cursor: move;
+    border: 1px dashed transparent;
+    padding: 2px;
+    white-space: pre;
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.2;
+    transform-origin: top left;
+    min-width: 20px;
+}
+
+.text-annotation:hover {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.2); 
+}
+
+.text-annotation.editing {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.9);
+    cursor: text;
+    z-index: 100;
+}
+
+.text-content {
+    outline: none;
+    width: 100%;
+    height: 100%;
+}
+
+
+.text-annotation .resize-handle {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    cursor: se-resize;
+    display: none; 
+}
+
+.text-annotation:hover .resize-handle {
+    display: block;
+}
+
+.text-annotation .delete-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 20px;
+    height: 20px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.text-annotation:hover .delete-btn {
+    display: flex;
+}
+
+
+.signature-modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 3000;
+}
+
+.signature-modal {
+    background: #1e1e1e;
+    color: #e5e5e5;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h3 { margin: 0; font-size: 1.1rem; }
+.close-btn { background: none; border: none; color: #aaa; font-size: 1.5rem; cursor: pointer; }
+
+.modal-tabs {
+    display: flex; background: rgba(0,0,0,0.2);
+}
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    background: none; border: none; color: #aaa;
+    cursor: pointer; font-weight: 500;
+    border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+    color: var(--accent, #3b82f6);
+    border-bottom-color: var(--accent, #3b82f6);
+    background: rgba(255,255,255,0.05);
+}
+
+.modal-body { padding: 20px; min-height: 250px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+
+.canvas-wrapper {
+    background: white;
+    height: 200px;
+    border-radius: 8px;
+    position: relative;
+    cursor: crosshair;
+}
+.canvas-placeholder {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ccc; pointer-events: none;
+    font-size: 1.5rem; font-family: cursive;
+}
+.clear-btn {
+    margin-top: 10px;
+    background: none; border: 1px solid #444; color: #aaa;
+    padding: 4px 12px; border-radius: 4px; font-size: 0.8rem;
+    cursor: pointer;
+}
+
+
+.upload-area {
+    border: 2px dashed #444;
+    border-radius: 8px;
+    height: 200px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #888; cursor: pointer;
+    transition: all 0.2s;
+}
+.upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent, #3b82f6);
+    background: rgba(59, 130, 246, 0.1);
+    color: white;
+}
+.upload-area i { font-size: 2rem; margin-bottom: 10px; }
+
+.preview-area canvas {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAFElEQVQ4T2NkgAH/UB4Fww8IDQEANBgD+Q0CAg8AAAAASUVORK5CYII='); 
+    max-width: 100%; border-radius: 4px;
+    display: block; margin: 0 auto;
+}
+.controls { margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+.controls label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
+.slider-group { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #aaa; margin-top: 10px; }
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: flex-end; gap: 10px;
+}
+.btn-cancel {
+    background: none; border: none; color: #aaa;
+    padding: 8px 16px; cursor: pointer;
+}
+.btn-apply {
+    background: var(--accent, #3b82f6);
+    color: white; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    font-weight: 500; cursor: pointer;
+}
+.btn-apply:hover { background: #2563eb; }
+
+    </style>
+</head>
+<body>
+
+    <div class="top-toolbar">
+        
+        <div class="tool-group">
+            <input type="file" id="file-input" accept=".pdf" />
+            
+            <button class="icon-btn" id="upload-btn" data-tooltip="Upload PDF">
+                <i class="bi bi-folder2-open"></i>
+            </button>
+            
+            <div class="divider-vertical"></div>
+
+            <button class="icon-btn" id="text-btn" data-tooltip="Add Text">
+                <i class="bi bi-type"></i>
+            </button>
+            
+            <button class="icon-btn" id="image-btn" data-tooltip="Add Image">
+                <i class="bi bi-image"></i>
+            </button>
+            
+            <button class="icon-btn" id="draw-btn" data-tooltip="Sign / Draw">
+                <i class="bi bi-pen"></i>
+            </button>
+        </div>
+
+        <div class="tool-group">
+            <button class="icon-btn sm" id="zoom-out" data-tooltip="Zoom Out">
+                <i class="bi bi-dash-lg"></i>
+            </button>
+            
+            <span id="zoom-level">100%</span>
+            
+            <button class="icon-btn sm" id="zoom-in" data-tooltip="Zoom In">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </div>
+
+        <div class="tool-group">
+            <button class="icon-btn success" id="save-btn" disabled data-tooltip="Save PDF">
+                <i class="bi bi-floppy"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <div id="pdf-container" class="pdf-container"></div>
+    <div id="message"></div>
+
+    <script src="/js/main.js" defer></script>
+</body>
+</html>
