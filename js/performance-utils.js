@@ -1,1 +1,127 @@
-(()=>{var r=class{constructor(e,t,s){this.pdfDocument=e,this.pdfjsLib=t,this.renderCallback=s,this.visiblePages=new Set,this.renderQueue=[],this.isRendering=!1,this.renderedPages=new Set,this.canvasPool=[],this.maxCanvasPoolSize=20,this.observer=null,this.setupIntersectionObserver()}setupIntersectionObserver(){this.observer=new IntersectionObserver(e=>{e.forEach(t=>{let s=parseInt(t.target.getAttribute("data-page"));t.isIntersecting?(this.visiblePages.add(s),this.queuePageRender(s)):this.visiblePages.delete(s)})},{root:document.getElementById("pdf-container"),rootMargin:"200px 0px",threshold:.1})}observePages(){document.querySelectorAll(".page-container").forEach(t=>{this.observer.observe(t)})}async queuePageRender(e){this.renderQueue.includes(e)||(this.renderQueue.push(e),this.isRendering||this.processRenderQueue())}async processRenderQueue(){if(this.renderQueue.length===0){this.isRendering=!1;return}this.isRendering=!0;let e=this.renderQueue.shift();if(this.visiblePages.has(e)&&this.renderCallback)try{await this.renderCallback(e),this.renderedPages.add(e)}catch(t){console.error(`Error rendering page ${e}:`,t)}requestAnimationFrame(()=>this.processRenderQueue())}resetRenderStatus(){this.renderedPages.clear(),this.renderQueue=[]}getCanvas(){return this.canvasPool.length>0?this.canvasPool.pop():document.createElement("canvas")}recycleCanvas(e){if(e)if(this.canvasPool.length<this.maxCanvasPoolSize){let t=e.getContext("2d");t.clearRect(0,0,e.width,e.height),t.setTransform(1,0,0,1,0,0),this.canvasPool.push(e)}else e.width=1,e.height=1,e.remove()}optimizeCanvasRendering(e){let t=e.getContext("2d",{alpha:!0,desynchronized:!0});return e.style.transform="translateZ(0)",e.style.backfaceVisibility="hidden",t}cleanupResources(){this.observer&&this.observer.disconnect(),this.visiblePages.clear(),this.renderedPages.clear(),this.renderQueue=[],this.canvasPool=[]}};})();
+(() => {
+  // src/js/performance-utils.js
+  var PerformanceManager = class {
+    /**
+     * @param {Object} pdfDocument - The loaded PDF document object
+     * @param {Object} pdfjsLib - The PDF.js library instance
+     * @param {Function} renderCallback - Function to call when a page needs rendering (pageNum) => void
+     */
+    constructor(pdfDocument, pdfjsLib, renderCallback) {
+      this.pdfDocument = pdfDocument;
+      this.pdfjsLib = pdfjsLib;
+      this.renderCallback = renderCallback;
+      this.visiblePages = /* @__PURE__ */ new Set();
+      this.renderQueue = [];
+      this.isRendering = false;
+      this.renderedPages = /* @__PURE__ */ new Set();
+      this.canvasPool = [];
+      this.maxCanvasPoolSize = 20;
+      this.observer = null;
+      this.setupIntersectionObserver();
+    }
+    setupIntersectionObserver() {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const pageNum = parseInt(entry.target.getAttribute("data-page"));
+          if (entry.isIntersecting) {
+            this.visiblePages.add(pageNum);
+            this.queuePageRender(pageNum);
+          } else {
+            this.visiblePages.delete(pageNum);
+          }
+        });
+      }, {
+        root: document.getElementById("pdf-container"),
+        rootMargin: "200px 0px",
+        // Pre-render slightly ahead of scroll
+        threshold: 0.1
+      });
+    }
+    observePages() {
+      const containers = document.querySelectorAll(".page-container");
+      containers.forEach((container) => {
+        this.observer.observe(container);
+      });
+    }
+    async queuePageRender(pageNum) {
+      if (!this.renderQueue.includes(pageNum)) {
+        this.renderQueue.push(pageNum);
+        if (!this.isRendering) {
+          this.processRenderQueue();
+        }
+      }
+    }
+    async processRenderQueue() {
+      if (this.renderQueue.length === 0) {
+        this.isRendering = false;
+        return;
+      }
+      this.isRendering = true;
+      const pageNum = this.renderQueue.shift();
+      if (this.visiblePages.has(pageNum)) {
+        if (this.renderCallback) {
+          try {
+            await this.renderCallback(pageNum);
+            this.renderedPages.add(pageNum);
+          } catch (e) {
+            console.error(`Error rendering page ${pageNum}:`, e);
+          }
+        }
+      }
+      requestAnimationFrame(() => this.processRenderQueue());
+    }
+    resetRenderStatus() {
+      this.renderedPages.clear();
+      this.renderQueue = [];
+    }
+    // --- RESTORED: Canvas Pooling Methods ---
+    /**
+     * Gets a canvas from the pool or creates a new one
+     */
+    getCanvas() {
+      if (this.canvasPool.length > 0) {
+        return this.canvasPool.pop();
+      }
+      return document.createElement("canvas");
+    }
+    /**
+     * Puts a canvas back into the pool for reuse
+     */
+    recycleCanvas(canvas) {
+      if (!canvas) return;
+      if (this.canvasPool.length < this.maxCanvasPoolSize) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        this.canvasPool.push(canvas);
+      } else {
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.remove();
+      }
+    }
+    /**
+     * Helper to apply common optimization settings to context
+     */
+    optimizeCanvasRendering(canvas) {
+      const ctx = canvas.getContext("2d", {
+        alpha: true,
+        // Opaque background is faster
+        desynchronized: true
+        // Low latency
+      });
+      canvas.style.transform = "translateZ(0)";
+      canvas.style.backfaceVisibility = "hidden";
+      return ctx;
+    }
+    cleanupResources() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+      this.visiblePages.clear();
+      this.renderedPages.clear();
+      this.renderQueue = [];
+      this.canvasPool = [];
+    }
+  };
+})();

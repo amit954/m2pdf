@@ -1,29 +1,379 @@
-(()=>{var E=Object.defineProperty;var x=(o,e)=>()=>(o&&(e=o(o=0)),e);var k=(o,e)=>{for(var t in e)E(o,t,{get:e[t],enumerable:!0})};var h,T=x(()=>{h=class o{constructor(e){if(this._headers={},this._body=null,this._multiParts=[],this._isAttachment=!1,typeof e!="object")throw new Error("invalid content for class MultiPartParser");this._lineEnding=this.getLineEnding(e);let t=this.splitHeaderFromBody(e);if(t.header){let i=new TextDecoder("utf-8").decode(t.header).split(/\n(?=[^\s])/g);for(let r of i){let s=r.indexOf(":");if(s!==-1){let l=r.substring(0,s).toLowerCase().trim(),c=r.substring(s+1).trim();this._headers[l]&&typeof this._headers[l]=="string"&&(this._headers[l]=[this._headers[l]]),this._headers[l]?this._headers[l].push(c):this._headers[l]=c}}}let n=this.getContentType(),a=this.getHeader("Content-Disposition");if(a&&a.match(/attachment/i)&&(this._isAttachment=!0),this._isAttachment)this.parseBodyApplication(t.body);else switch(n.mediaType){case"multipart":this.parseBodyMultipart(t.body,n.args);break;case"text":this.parseBodyText(t.body);break;default:this.parseBodyApplication(t.body);break}}get isAttachment(){return this._isAttachment}get contentType(){let e=this.getContentType();return e.mediaType&&e.subType?e.mediaType+"/"+e.subType:null}getContentType(){let e=this.getHeader("Content-Type");if(e){let t=e.match(/([a-z]+)\/([a-z0-9\-\.\+_]+);?((?:.|\s)*)$/i);if(t){let n=t[3]&&t[3].trim()!==""?t[3].trim():null;return{mediaType:t[1].toLowerCase(),subType:t[2].toLowerCase(),args:n}}}return{mediaType:null,subType:null,args:null}}getBody(){return this._body}getPartByContentType(e,t=null){return this.recursiveGetByContentType(this,e,t)||null}getHeader(e,t=!1,n=!1){let a=null;return this._headers[e.toLowerCase()]&&(a=this._headers[e.toLowerCase()]),a&&t&&(a=typeof a=="string"?this.decodeRfc1342(a):a.map(this.decodeRfc1342.bind(this))),a&&n&&(a=typeof a=="string"?a.replace(/\r?\n\s/g,""):a.map((i=>i.replace(/\r?\n\s/g,"")))),a}getMultiParts(){return this._multiParts}getFilename(){let e=this.getHeader("Content-Disposition"),t=e&&e.match(/filename=\"?([^"\n]+)\"?/i);if(t)return this.decodeRfc1342(t[1]);let n=this.getHeader("Content-Type"),a=n&&n.match(/name=\"?([^"\n]+)\"?/i);return a?this.decodeRfc1342(a[1]):null}decodeContent(e,t=null){let n=this.getHeader("Content-Transfer-Encoding");switch(n=n?n.toUpperCase():"BINARY",n){case"BASE64":return this.decodeBase64(e);case"QUOTED-PRINTABLE":return this.decodeQuotedPrintable(e,t);case"8BIT":case"7BIT":case"BINARY":return e}}decodeRfc1342(e){let t=new TextDecoder;return e=e.replace(/=\?([0-9a-z\-_:]+)\?(B|Q)\?(.*?)\?=/gi,((n,a,i,r)=>{let s=null;switch(i.toUpperCase()){case"B":s=this.decodeBase64(r,a);break;case"Q":s=this.decodeQuotedPrintable(r,a,!0);break;default:throw new Error('invalid string encoding "'+i+'"')}return t.decode(new Uint8Array(s))}))}decodeBase64(e,t=null){e instanceof Uint8Array&&(e=new TextDecoder().decode(e));let n=atob(e),a=n.length,i=new Uint8Array(a);for(let r=0;r<a;r++)i[r]=n.charCodeAt(r);if(t){let r=new TextDecoder(t);return new TextEncoder().encode(r.decode(i)).buffer}return i.buffer}decodeQuotedPrintable(e,t,n=!1){e instanceof Uint8Array&&(e=new TextDecoder().decode(e)),n&&(e=e.replace(/_/g," "));let a=new TextDecoder(t||"utf-8"),i=e.replace(/[\t\x20]$/gm,"").replace(/=(?:\r\n?|\n)/g,"").replace(/((?:=[a-fA-F0-9]{2})+)/g,(r=>{let s=r.substring(1).split("="),l=new Uint8Array(s.length);for(let c=0;c<s.length;c++)l[c]=parseInt(s[c],16);return a.decode(l)}));return new TextEncoder().encode(i).buffer}getBoundary(e){let t=e.match(/boundary=\"?([^"\s\n]+)\"?/i);return t?t[1]:null}recursiveGetByContentType(e,t,n){let a=e.getContentType();if(t===a.mediaType&&(!n||n===a.subType))return e;for(let i of e.getMultiParts())if(i instanceof o){let r=this.recursiveGetByContentType(i,t,n);if(r)return r}return null}getLineEnding(e){let t=new Uint8Array(e),n=0,a=0;for(let i=0;i<t.length;i++)t[i]===10&&t[i-1]===13?a++:t[i]===10&&n++;return n>0&&a>0?"mixed":n>0?"unix":a>0?"windows":"unknown"}splitHeaderFromBody(e){let t=new Uint8Array(e),n=null,a=0;for(let s=0;s<t.length;s++){if(this._lineEnding!=="unix"&&t[s]===13&&t[s+1]===10&&t[s+2]===13&&t[s+3]===10){a=4,n=s;break}if(t[s]===10&&t[s+1]===10){a=2,n=s;break}}let i=null,r=null;return n?(i=t.slice(0,n),r=t.slice(n+a)):r=t,{header:i,body:r}}parseBodyApplication(e){this._body=this.decodeContent(e,null)}parseBodyText(e){let t="utf-8",n=this.getContentType().args;n&&n.match(/charset=\"?([^"\s\n;]+)\"?/i)&&(t=n.match(/charset=\"?([^"\s\n;]+)\"?/i)[1]);let a=this.decodeContent(e,t),i=new TextDecoder;this._body=i.decode(new Uint8Array(a))}parseBodyMultipart(e,t){let n=this.getBoundary(t);if(!n)throw new Error("Boundary not found.");let a="--"+n+"--",i=this.indexOfString(e,a);if(i===-1)throw new Error("Final Boundary not found");let r=e.slice(0,i+a.length);for(let s=0;s<1e3;s++){let l="--"+n,c=this.indexOfString(r,l),d=this.indexOfString(r,l,c+1);if(c===-1||d===-1)break;c+=l.length;let p=r.slice(c,d);this._multiParts.push(new o(p)),r=r.slice(d)}}indexOfString(e,t,n=0,a="utf-8"){let i=new TextEncoder(a).encode(t);return e.findIndex(((r,s)=>{if(s<n)return!1;for(let l=0;l<i.length;l++)if(e[s+l]!==i[l])return!1;return!0}))}}});var B={};k(B,{EmlReader:()=>g});var g,v=x(()=>{T();g=class{#e=null;constructor(e){this.#e=new h(e)}getDate(){let e=this.#e.getHeader("date");return e?new Date(e):null}getSubject(){return this.#e.getHeader("subject",!0,!0)}getFrom(){return this.#e.getHeader("from",!0,!0)}getBcc(){return this.#e.getHeader("bcc",!0,!0)}getCc(){return this.#e.getHeader("cc",!0,!0)}getTo(){return this.#e.getHeader("to",!0,!0)}getReplyTo(){return this.#e.getHeader("reply-to",!0,!0)}getType(){return this.#e.getHeader("received")?"received":"sent"}getHeader(e,t=!1,n=!1){return this.#e.getHeader(e,t,n)}getAttachments(){let e=[],t=this.#e.getPartByContentType("multipart","mixed");if(t)for(let n of t.getMultiParts())n.isAttachment&&e.push({filename:n.getFilename(),contentType:n.contentType,content:n.getBody(),filesize:n.getBody().byteLength});else{let n=this.#e.getPartByContentType("application","octet-stream");n&&n.getFilename()&&e.push({filename:n.getFilename(),contentType:n.contentType,content:n.getBody(),filesize:n.getBody().byteLength})}return e}getMessageText(){let e=this.#e.getPartByContentType("text","plain");if(e&&!e.isAttachment)return e.getBody();let t=this.#e.getPartByContentType("text","html");if(t&&!t.isAttachment){let n=t.getBody(),a=n.indexOf("<body");a!==-1&&(n=n.substring(a)),n=n.replace(/<style[\s\w\W]+<\/style>/g,"");let i=document.createElement("div");return i.innerHTML=n,i.innerText.replace(/\r?\n\s+\r?\n/g,`
+(() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __esm = (fn, res) => function __init() {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  };
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
 
-`).trim()}return null}getMessageHtml(){let e=this.#e.getPartByContentType("text","html");if(e&&!e.isAttachment)return e.getBody();let t=this.#e.getPartByContentType("text","plain");return t&&!t.isAttachment?t.getBody().replace(/\r?\n/g,"<br />"):null}}});var f,y=[];function L(o){return o.replace(/[^a-z0-9\s.\-_]/gi,"").replace(/\s+/g," ").trim().replace(/\s/g,"_")||"attachments"}function P(o){if(o===0)return"0 Bytes";let e=Math.floor(Math.log(o)/Math.log(1024));return parseFloat((o/Math.pow(1024,e)).toFixed(2))+" "+["Bytes","KB","MB","GB","TB"][e]}function _(o){return o.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,"")}function u(o,e){let t=document.getElementById("email-content");if(t.innerHTML="",e){let n=document.createElement("div");n.className="email-content-container",n.innerHTML=_(o),t.appendChild(n)}else{let n=document.createElement("pre");n.className="plain-text-content",n.style.whiteSpace="pre-wrap",n.style.margin="0",n.textContent=o,t.appendChild(n)}}async function C(o){if(o&&o.name.toLowerCase().endsWith(".eml"))if(f)try{$("#error-message").hide();let e=await o.arrayBuffer(),t=new f(e);$("#email-subject").text(t.getSubject()||"(No Subject)"),$("#email-from").text(t.getFrom()||"Unknown"),$("#email-to").text(t.getTo()||"Unknown");let n=t.getDate();if(n){let d={weekday:"short",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:!0,timeZoneName:"shortOffset"},p=n.toLocaleString("en-US",d).replace(/,/g,"").replace(/(\d{2}):(\d{2}):(\d{2})/,"$1:$2:$3").replace("GMT","");$("#email-date").text(p)}else $("#email-date").text("Unknown");let a=t.getCc();$("#cc-container").toggle(!!a),a&&$("#email-cc").text(a);let i=t.getBcc();$("#bcc-container").toggle(!!i),i&&$("#email-bcc").text(i);let r=t.getReplyTo();$("#reply-to-container").toggle(!!r),r&&$("#email-reply-to").text(r);let s=t.getAttachments();if(y=s,s.length>0){let d=$("#attachments-list");d.empty(),s.forEach(((p,m)=>{let A=P(p.filesize);d.append(`
+  // src/js/MultiPartParser.js
+  var MultiPartParser;
+  var init_MultiPartParser = __esm({
+    "src/js/MultiPartParser.js"() {
+      MultiPartParser = class _MultiPartParser {
+        constructor(e) {
+          if (this._headers = {}, this._body = null, this._multiParts = [], this._isAttachment = false, "object" != typeof e) throw new Error("invalid content for class MultiPartParser");
+          this._lineEnding = this.getLineEnding(e);
+          const t = this.splitHeaderFromBody(e);
+          if (t.header) {
+            const e2 = new TextDecoder("utf-8").decode(t.header).split(/\n(?=[^\s])/g);
+            for (let t2 of e2) {
+              const e3 = t2.indexOf(":");
+              if (-1 !== e3) {
+                const n2 = t2.substring(0, e3).toLowerCase().trim(), r2 = t2.substring(e3 + 1).trim();
+                this._headers[n2] && "string" == typeof this._headers[n2] && (this._headers[n2] = [this._headers[n2]]), this._headers[n2] ? this._headers[n2].push(r2) : this._headers[n2] = r2;
+              }
+            }
+          }
+          let n = this.getContentType();
+          const r = this.getHeader("Content-Disposition");
+          if (r && r.match(/attachment/i) && (this._isAttachment = true), this._isAttachment) this.parseBodyApplication(t.body);
+          else switch (n.mediaType) {
+            case "multipart":
+              this.parseBodyMultipart(t.body, n.args);
+              break;
+            case "text":
+              this.parseBodyText(t.body);
+              break;
+            default:
+              this.parseBodyApplication(t.body);
+              break;
+          }
+        }
+        get isAttachment() {
+          return this._isAttachment;
+        }
+        get contentType() {
+          let e = this.getContentType();
+          return e.mediaType && e.subType ? e.mediaType + "/" + e.subType : null;
+        }
+        getContentType() {
+          let e = this.getHeader("Content-Type");
+          if (e) {
+            let t = e.match(/([a-z]+)\/([a-z0-9\-\.\+_]+);?((?:.|\s)*)$/i);
+            if (t) {
+              const e2 = t[3] && "" !== t[3].trim() ? t[3].trim() : null;
+              return { mediaType: t[1].toLowerCase(), subType: t[2].toLowerCase(), args: e2 };
+            }
+          }
+          return { mediaType: null, subType: null, args: null };
+        }
+        getBody() {
+          return this._body;
+        }
+        getPartByContentType(e, t = null) {
+          let n = this.recursiveGetByContentType(this, e, t);
+          return n || null;
+        }
+        getHeader(e, t = false, n = false) {
+          let r = null;
+          return this._headers[e.toLowerCase()] && (r = this._headers[e.toLowerCase()]), r && t && (r = "string" == typeof r ? this.decodeRfc1342(r) : r.map(this.decodeRfc1342.bind(this))), r && n && (r = "string" == typeof r ? r.replace(/\r?\n\s/g, "") : r.map(((e2) => e2.replace(/\r?\n\s/g, "")))), r;
+        }
+        getMultiParts() {
+          return this._multiParts;
+        }
+        getFilename() {
+          let e = this.getHeader("Content-Disposition"), t = e && e.match(/filename=\"?([^"\n]+)\"?/i);
+          if (t) return this.decodeRfc1342(t[1]);
+          let n = this.getHeader("Content-Type"), r = n && n.match(/name=\"?([^"\n]+)\"?/i);
+          return r ? this.decodeRfc1342(r[1]) : null;
+        }
+        decodeContent(e, t = null) {
+          let n = this.getHeader("Content-Transfer-Encoding");
+          switch (n = n ? n.toUpperCase() : "BINARY", n) {
+            case "BASE64":
+              return this.decodeBase64(e);
+            case "QUOTED-PRINTABLE":
+              return this.decodeQuotedPrintable(e, t);
+            case "8BIT":
+            case "7BIT":
+            case "BINARY":
+              return e;
+          }
+        }
+        decodeRfc1342(e) {
+          const t = new TextDecoder();
+          return e = e.replace(/=\?([0-9a-z\-_:]+)\?(B|Q)\?(.*?)\?=/gi, ((e2, n, r, i) => {
+            let s = null;
+            switch (r.toUpperCase()) {
+              case "B":
+                s = this.decodeBase64(i, n);
+                break;
+              case "Q":
+                s = this.decodeQuotedPrintable(i, n, true);
+                break;
+              default:
+                throw new Error('invalid string encoding "' + r + '"');
+            }
+            return t.decode(new Uint8Array(s));
+          }));
+        }
+        decodeBase64(e, t = null) {
+          if (e instanceof Uint8Array) {
+            e = new TextDecoder().decode(e);
+          }
+          const n = atob(e), r = n.length, i = new Uint8Array(r);
+          for (let e2 = 0; e2 < r; e2++) i[e2] = n.charCodeAt(e2);
+          if (t) {
+            const e2 = new TextDecoder(t);
+            return new TextEncoder().encode(e2.decode(i)).buffer;
+          }
+          return i.buffer;
+        }
+        decodeQuotedPrintable(e, t, n = false) {
+          if (e instanceof Uint8Array) {
+            e = new TextDecoder().decode(e);
+          }
+          n && (e = e.replace(/_/g, " "));
+          const r = new TextDecoder(t || "utf-8"), i = e.replace(/[\t\x20]$/gm, "").replace(/=(?:\r\n?|\n)/g, "").replace(/((?:=[a-fA-F0-9]{2})+)/g, ((e2) => {
+            const t2 = e2.substring(1).split("="), n2 = new Uint8Array(t2.length);
+            for (let e3 = 0; e3 < t2.length; e3++) n2[e3] = parseInt(t2[e3], 16);
+            return r.decode(n2);
+          }));
+          return new TextEncoder().encode(i).buffer;
+        }
+        getBoundary(e) {
+          const t = e.match(/boundary=\"?([^"\s\n]+)\"?/i);
+          return t ? t[1] : null;
+        }
+        recursiveGetByContentType(e, t, n) {
+          const r = e.getContentType();
+          if (t === r.mediaType && (!n || n === r.subType)) return e;
+          for (let r2 of e.getMultiParts()) if (r2 instanceof _MultiPartParser) {
+            let e2 = this.recursiveGetByContentType(r2, t, n);
+            if (e2) return e2;
+          }
+          return null;
+        }
+        getLineEnding(e) {
+          const t = new Uint8Array(e);
+          let n = 0, r = 0;
+          for (let e2 = 0; e2 < t.length; e2++) 10 === t[e2] && 13 === t[e2 - 1] ? r++ : 10 === t[e2] && n++;
+          return n > 0 && r > 0 ? "mixed" : n > 0 ? "unix" : r > 0 ? "windows" : "unknown";
+        }
+        splitHeaderFromBody(e) {
+          const t = new Uint8Array(e);
+          let n = null, r = 0;
+          for (let e2 = 0; e2 < t.length; e2++) {
+            if ("unix" !== this._lineEnding && 13 === t[e2] && 10 === t[e2 + 1] && 13 === t[e2 + 2] && 10 === t[e2 + 3]) {
+              r = 4, n = e2;
+              break;
+            }
+            if (10 === t[e2] && 10 === t[e2 + 1]) {
+              r = 2, n = e2;
+              break;
+            }
+          }
+          let i = null, s = null;
+          return n ? (i = t.slice(0, n), s = t.slice(n + r)) : s = t, { header: i, body: s };
+        }
+        parseBodyApplication(e) {
+          this._body = this.decodeContent(e, null);
+        }
+        parseBodyText(e) {
+          let t = "utf-8";
+          const n = this.getContentType().args;
+          if (n && n.match(/charset=\"?([^"\s\n;]+)\"?/i)) {
+            t = n.match(/charset=\"?([^"\s\n;]+)\"?/i)[1];
+          }
+          const r = this.decodeContent(e, t), i = new TextDecoder();
+          this._body = i.decode(new Uint8Array(r));
+        }
+        parseBodyMultipart(e, t) {
+          const n = this.getBoundary(t);
+          if (!n) throw new Error("Boundary not found.");
+          const r = "--" + n + "--", i = this.indexOfString(e, r);
+          if (-1 === i) throw new Error("Final Boundary not found");
+          let s = e.slice(0, i + r.length);
+          for (let e2 = 0; e2 < 1e3; e2++) {
+            let e3 = "--" + n, t2 = this.indexOfString(s, e3), r2 = this.indexOfString(s, e3, t2 + 1);
+            if (-1 === t2 || -1 === r2) break;
+            t2 += e3.length;
+            const i2 = s.slice(t2, r2);
+            this._multiParts.push(new _MultiPartParser(i2)), s = s.slice(r2);
+          }
+        }
+        indexOfString(e, t, n = 0, r = "utf-8") {
+          const i = new TextEncoder(r).encode(t);
+          return e.findIndex(((t2, r2) => {
+            if (r2 < n) return false;
+            for (let t3 = 0; t3 < i.length; t3++) if (e[r2 + t3] !== i[t3]) return false;
+            return true;
+          }));
+        }
+      };
+    }
+  });
+
+  // src/js/EmlReader.js
+  var EmlReader_exports = {};
+  __export(EmlReader_exports, {
+    EmlReader: () => EmlReader
+  });
+  var EmlReader;
+  var init_EmlReader = __esm({
+    "src/js/EmlReader.js"() {
+      init_MultiPartParser();
+      EmlReader = class {
+        #t = null;
+        constructor(t) {
+          this.#t = new MultiPartParser(t);
+        }
+        getDate() {
+          let t = this.#t.getHeader("date");
+          return t ? new Date(t) : null;
+        }
+        getSubject() {
+          return this.#t.getHeader("subject", true, true);
+        }
+        getFrom() {
+          return this.#t.getHeader("from", true, true);
+        }
+        getBcc() {
+          return this.#t.getHeader("bcc", true, true);
+        }
+        getCc() {
+          return this.#t.getHeader("cc", true, true);
+        }
+        getTo() {
+          return this.#t.getHeader("to", true, true);
+        }
+        getReplyTo() {
+          return this.#t.getHeader("reply-to", true, true);
+        }
+        getType() {
+          return this.#t.getHeader("received") ? "received" : "sent";
+        }
+        getHeader(t, e = false, r = false) {
+          return this.#t.getHeader(t, e, r);
+        }
+        getAttachments() {
+          let t = [], e = this.#t.getPartByContentType("multipart", "mixed");
+          if (e) for (const r of e.getMultiParts()) r.isAttachment && t.push({ filename: r.getFilename(), contentType: r.contentType, content: r.getBody(), filesize: r.getBody().byteLength });
+          else {
+            const e2 = this.#t.getPartByContentType("application", "octet-stream");
+            e2 && e2.getFilename() && t.push({ filename: e2.getFilename(), contentType: e2.contentType, content: e2.getBody(), filesize: e2.getBody().byteLength });
+          }
+          return t;
+        }
+        getMessageText() {
+          let t = this.#t.getPartByContentType("text", "plain");
+          if (t && !t.isAttachment) return t.getBody();
+          let e = this.#t.getPartByContentType("text", "html");
+          if (e && !e.isAttachment) {
+            let t2 = e.getBody(), r = t2.indexOf("<body");
+            -1 !== r && (t2 = t2.substring(r)), t2 = t2.replace(/<style[\s\w\W]+<\/style>/g, "");
+            let a = document.createElement("div");
+            return a.innerHTML = t2, a.innerText.replace(/\r?\n\s+\r?\n/g, "\n\n").trim();
+          }
+          return null;
+        }
+        getMessageHtml() {
+          let t = this.#t.getPartByContentType("text", "html");
+          if (t && !t.isAttachment) return t.getBody();
+          let e = this.#t.getPartByContentType("text", "plain");
+          return e && !e.isAttachment ? e.getBody().replace(/\r?\n/g, "<br />") : null;
+        }
+      };
+    }
+  });
+
+  // src/js/emlViewer.js
+  var EmlReader2;
+  var currentAttachments = [];
+  function sanitizeFilename(e) {
+    return e.replace(/[^a-z0-9\s.\-_]/gi, "").replace(/\s+/g, " ").trim().replace(/\s/g, "_") || "attachments";
+  }
+  function formatFileSize(e) {
+    if (0 === e) return "0 Bytes";
+    const t = Math.floor(Math.log(e) / Math.log(1024));
+    return parseFloat((e / Math.pow(1024, t)).toFixed(2)) + " " + ["Bytes", "KB", "MB", "GB", "TB"][t];
+  }
+  function sanitizeHtml(e) {
+    return e.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+  }
+  function displayEmailContent(e, t) {
+    const n = document.getElementById("email-content");
+    if (n.innerHTML = "", t) {
+      const t2 = document.createElement("div");
+      t2.className = "email-content-container", t2.innerHTML = sanitizeHtml(e), n.appendChild(t2);
+    } else {
+      const t2 = document.createElement("pre");
+      t2.className = "plain-text-content", t2.style.whiteSpace = "pre-wrap", t2.style.margin = "0", t2.textContent = e, n.appendChild(t2);
+    }
+  }
+  async function handleFile(e) {
+    if (e && e.name.toLowerCase().endsWith(".eml")) if (EmlReader2) try {
+      $("#error-message").hide();
+      const t = await e.arrayBuffer(), n = new EmlReader2(t);
+      $("#email-subject").text(n.getSubject() || "(No Subject)"), $("#email-from").text(n.getFrom() || "Unknown"), $("#email-to").text(n.getTo() || "Unknown");
+      const a = n.getDate();
+      if (a) {
+        const e2 = { weekday: "short", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true, timeZoneName: "shortOffset" }, t2 = a.toLocaleString("en-US", e2).replace(/,/g, "").replace(/(\d{2}):(\d{2}):(\d{2})/, "$1:$2:$3").replace("GMT", "");
+        $("#email-date").text(t2);
+      } else $("#email-date").text("Unknown");
+      const o = n.getCc();
+      $("#cc-container").toggle(!!o), o && $("#email-cc").text(o);
+      const i = n.getBcc();
+      $("#bcc-container").toggle(!!i), i && $("#email-bcc").text(i);
+      const s = n.getReplyTo();
+      $("#reply-to-container").toggle(!!s), s && $("#email-reply-to").text(s);
+      const l = n.getAttachments();
+      if (currentAttachments = l, l.length > 0) {
+        const e2 = $("#attachments-list");
+        e2.empty(), l.forEach(((t2, n2) => {
+          const a2 = formatFileSize(t2.filesize);
+          e2.append(`
                         <div class="attachment-item">
-                            <span class="attachment-name">${p.filename}</span>
-                            <span class="attachment-size">${A}</span>
+                            <span class="attachment-name">${t2.filename}</span>
+                            <span class="attachment-size">${a2}</span>
                             <a href="#" class="attachment-download no-print" 
-                               onclick="downloadAttachment('${p.filename}', '${p.contentType}', ${m}); return false;">
+                               onclick="downloadAttachment('${t2.filename}', '${t2.contentType}', ${n2}); return false;">
                                 <i class="bi bi-download"></i>
                             </a>
                         </div>
-                    `)})),$("#attachments-section").show(),$("#download-all").toggle(s.length>1),s.length>1&&$("#download-all").off("click").on("click",window.downloadAllAttachments)}else $("#attachments-section").hide(),$("#download-all").hide();let l=t.getMessageHtml(),c=t.getMessageText();l?u(l.replace(/(\r\n|\n|\r)/g,"").replace(/\s+/g," ").replace(/> +</g,"><").replace(/<br\s*\/?>/gi,"<br>").replace(/(<br>){3,}/gi,"<br><br>").trim(),!0):u(c?c.replace(/(\r\n|\n|\r)+/g,`
-`).replace(/\n\s+\n/g,`
-
-`).replace(/\s+/g," ").replace(/\n{3,}/g,`
-
-`).trim():"(No content)",!1),$("#email-display").show(),setTimeout((()=>{document.getElementById("email-display").scrollIntoView({behavior:"smooth",block:"start"})}),100)}catch(e){$("#error-message").text("Error processing email: "+e.message).show()}else $("#error-message").text("EML parser not loaded. Please check console for errors.").show();else $("#error-message").text("Please drop an .eml file").show()}function U(){let o=$("#email-subject").text(),e=$("#email-from").text(),t=$("#email-to").text(),n=$("#email-date").text(),a=$("#email-cc").text(),i=$("#email-bcc").text(),r=$("#email-reply-to").text(),s=$("#email-content").html(),l="";if($("#attachments-section").is(":visible")){let d=[];$("#attachments-list .attachment-item").each((function(){let p=$(this).find(".attachment-name").text(),m=$(this).find(".attachment-size").text();d.push(`<div style="display:flex;margin:8px 0;"><span style="flex-grow:1;">${p}</span><span style="color:#5f6368;margin-left:10px;">${m}</span></div>`)})),d.length>0&&(l=`
+                    `);
+        })), $("#attachments-section").show(), $("#download-all").toggle(l.length > 1), l.length > 1 && $("#download-all").off("click").on("click", window.downloadAllAttachments);
+      } else $("#attachments-section").hide(), $("#download-all").hide();
+      const r = n.getMessageHtml(), c = n.getMessageText();
+      if (r) {
+        displayEmailContent(r.replace(/(\r\n|\n|\r)/g, "").replace(/\s+/g, " ").replace(/> +</g, "><").replace(/<br\s*\/?>/gi, "<br>").replace(/(<br>){3,}/gi, "<br><br>").trim(), true);
+      } else if (c) {
+        displayEmailContent(c.replace(/(\r\n|\n|\r)+/g, "\n").replace(/\n\s+\n/g, "\n\n").replace(/\s+/g, " ").replace(/\n{3,}/g, "\n\n").trim(), false);
+      } else displayEmailContent("(No content)", false);
+      $("#email-display").show(), setTimeout((() => {
+        document.getElementById("email-display").scrollIntoView({ behavior: "smooth", block: "start" });
+      }), 100);
+    } catch (e2) {
+      $("#error-message").text("Error processing email: " + e2.message).show();
+    }
+    else $("#error-message").text("EML parser not loaded. Please check console for errors.").show();
+    else $("#error-message").text("Please drop an .eml file").show();
+  }
+  function createPrintVersion() {
+    const e = $("#email-subject").text(), t = $("#email-from").text(), n = $("#email-to").text(), a = $("#email-date").text(), o = $("#email-cc").text(), i = $("#email-bcc").text(), s = $("#email-reply-to").text(), l = $("#email-content").html();
+    let r = "";
+    if ($("#attachments-section").is(":visible")) {
+      const e2 = [];
+      $("#attachments-list .attachment-item").each((function() {
+        const t2 = $(this).find(".attachment-name").text(), n2 = $(this).find(".attachment-size").text();
+        e2.push(`<div style="display:flex;margin:8px 0;"><span style="flex-grow:1;">${t2}</span><span style="color:#5f6368;margin-left:10px;">${n2}</span></div>`);
+      })), e2.length > 0 && (r = `
                 <div style="border-top: 1px solid #e0e0e0; padding-top: 10px; margin-top: 20px;">
                     <h3 style="font-size: 16px; margin-bottom: 10px;">Attachments</h3>
-                    ${d.join("")}
+                    ${e2.join("")}
                 </div>
-            `)}let c=window.open("","_blank");c.document.write(`
+            `);
+    }
+    const c = window.open("", "_blank");
+    c.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Print: ${o}</title>
+            <title>Print: ${e}</title>
             <meta charset="UTF-8">
             <style>
                 body {
@@ -64,46 +414,46 @@
         </head>
         <body>
             <div class="container">
-                <h1 class="email-subject">${o}</h1>
+                <h1 class="email-subject">${e}</h1>
                 
                 <div class="metadata">
                     <div class="metadata-row">
                         <span class="metadata-label">From:</span>
-                        <span>${e}</span>
+                        <span>${t}</span>
                     </div>
                     <div class="metadata-row">
                         <span class="metadata-label">To:</span>
-                        <span>${t}</span>
+                        <span>${n}</span>
                     </div>
-                    ${a?`
+                    ${o ? `
                     <div class="metadata-row">
                         <span class="metadata-label">CC:</span>
-                        <span>${a}</span>
+                        <span>${o}</span>
                     </div>
-                    `:""}
-                    ${i?`
+                    ` : ""}
+                    ${i ? `
                     <div class="metadata-row">
                         <span class="metadata-label">BCC:</span>
                         <span>${i}</span>
                     </div>
-                    `:""}
+                    ` : ""}
                     <div class="metadata-row">
                         <span class="metadata-label">Date:</span>
-                        <span>${n}</span>
+                        <span>${a}</span>
                     </div>
-                    ${r?`
+                    ${s ? `
                     <div class="metadata-row">
                         <span class="metadata-label">Reply-To:</span>
-                        <span>${r}</span>
+                        <span>${s}</span>
                     </div>
-                    `:""}
+                    ` : ""}
                 </div>
                 
                 <div class="email-content">
-                    ${s}
+                    ${l}
                 </div>
                 
-                ${l}
+                ${r}
             </div>
             
             <script>
@@ -119,7 +469,65 @@
             <\/script>
         </body>
         </html>
-    `),c.document.close()}function w(){$(".email-header, .email-content").addClass("no-page-break"),$(".email-content").css({"padding-top":"0","margin-top":"0"}),$("#email-display").css({"margin-top":"0","padding-top":"0"}),$("body").addClass("printing"),$("#email-content").height()>1e3&&$("html, body").css("height","auto"),/Chrome/.test(navigator.userAgent)&&($(".email-header").css("position","relative"),$(".email-content").css("position","relative"))}function b(){$("body").removeClass("printing"),$("html, body").css("height",""),$(".email-header").css("position",""),$(".email-content").css("position","")}if($(document).ready((async function(){try{f=(await Promise.resolve().then(()=>(v(),B))).EmlReader}catch(e){$("#error-message").text("Error loading EML parser: "+e.message).show()}$(document).on("drag dragstart dragend dragover dragenter dragleave drop",(function(e){e.preventDefault(),e.stopPropagation()}));let o=$("#drop-zone");o.on("click",(function(){let e=$('<input type="file" accept=".eml" style="display: none">');e.on("change",(function(t){let n=t.target.files[0];n&&C(n)})),e.click()})),o.on("dragover dragenter",(function(){$(this).addClass("drag-over")})).on("dragleave dragend drop",(function(){$(this).removeClass("drag-over")})).on("drop",(function(e){C(e.originalEvent.dataTransfer.files[0])})),$("#print-button").off("click").on("click",(function(){U()}))})),window.matchMedia){let o=window.matchMedia("print");o.addEventListener?o.addEventListener("change",(function(e){e.matches?w():b()})):o.addListener&&o.addListener((function(e){e.matches?w():b()}))}window.onbeforeprint=w,window.onafterprint=b,window.downloadAllAttachments=async function(){let o=new JSZip,e=L($("#email-subject").text()||"attachments");y.forEach((t=>{o.file(t.filename,t.content)}));try{let t=await o.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:9}}),n=URL.createObjectURL(t),a=document.createElement("a");a.href=n,a.download=`${e}_attachments.zip`,document.body.appendChild(a),a.click(),document.body.removeChild(a),URL.revokeObjectURL(n)}catch(t){alert("Error creating ZIP file: "+t.message)}},window.downloadAttachment=function(o,e,t){let n=y[t],a=new Blob([n.content],{type:e}),i=URL.createObjectURL(a),r=document.createElement("a");r.href=i,r.download=o,document.body.appendChild(r),r.click(),document.body.removeChild(r),URL.revokeObjectURL(i)};})();
+    `), c.document.close();
+  }
+  function preparePrint() {
+    $(".email-header, .email-content").addClass("no-page-break"), $(".email-content").css({ "padding-top": "0", "margin-top": "0" }), $("#email-display").css({ "margin-top": "0", "padding-top": "0" }), $("body").addClass("printing");
+    $("#email-content").height() > 1e3 && $("html, body").css("height", "auto"), /Chrome/.test(navigator.userAgent) && ($(".email-header").css("position", "relative"), $(".email-content").css("position", "relative"));
+  }
+  function restorePage() {
+    $("body").removeClass("printing"), $("html, body").css("height", ""), $(".email-header").css("position", ""), $(".email-content").css("position", "");
+  }
+  if ($(document).ready((async function() {
+    try {
+      const e2 = await Promise.resolve().then(() => (init_EmlReader(), EmlReader_exports));
+      EmlReader2 = e2.EmlReader;
+    } catch (e2) {
+      $("#error-message").text("Error loading EML parser: " + e2.message).show();
+    }
+    $(document).on("drag dragstart dragend dragover dragenter dragleave drop", (function(e2) {
+      e2.preventDefault(), e2.stopPropagation();
+    }));
+    const e = $("#drop-zone");
+    e.on("click", (function() {
+      const e2 = $('<input type="file" accept=".eml" style="display: none">');
+      e2.on("change", (function(e3) {
+        const t = e3.target.files[0];
+        t && handleFile(t);
+      })), e2.click();
+    })), e.on("dragover dragenter", (function() {
+      $(this).addClass("drag-over");
+    })).on("dragleave dragend drop", (function() {
+      $(this).removeClass("drag-over");
+    })).on("drop", (function(e2) {
+      handleFile(e2.originalEvent.dataTransfer.files[0]);
+    })), $("#print-button").off("click").on("click", (function() {
+      createPrintVersion();
+    }));
+  })), window.matchMedia) {
+    const e = window.matchMedia("print");
+    e.addEventListener ? e.addEventListener("change", (function(e2) {
+      e2.matches ? preparePrint() : restorePage();
+    })) : e.addListener && e.addListener((function(e2) {
+      e2.matches ? preparePrint() : restorePage();
+    }));
+  }
+  window.onbeforeprint = preparePrint, window.onafterprint = restorePage, window.downloadAllAttachments = async function() {
+    const e = new JSZip(), t = sanitizeFilename($("#email-subject").text() || "attachments");
+    currentAttachments.forEach(((t2) => {
+      e.file(t2.filename, t2.content);
+    }));
+    try {
+      const n = await e.generateAsync({ type: "blob", compression: "DEFLATE", compressionOptions: { level: 9 } }), a = URL.createObjectURL(n), o = document.createElement("a");
+      o.href = a, o.download = `${t}_attachments.zip`, document.body.appendChild(o), o.click(), document.body.removeChild(o), URL.revokeObjectURL(a);
+    } catch (e2) {
+      alert("Error creating ZIP file: " + e2.message);
+    }
+  }, window.downloadAttachment = function(e, t, n) {
+    const a = currentAttachments[n], o = new Blob([a.content], { type: t }), i = URL.createObjectURL(o), s = document.createElement("a");
+    s.href = i, s.download = e, document.body.appendChild(s), s.click(), document.body.removeChild(s), URL.revokeObjectURL(i);
+  };
+})();
 /*
  * Copyright © 2023 Netas Ltd., Switzerland.
  * @author  Lukas Buchs, lukas.buchs@netas.ch

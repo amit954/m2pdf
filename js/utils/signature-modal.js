@@ -1,4 +1,28 @@
-(()=>{var f=class{constructor(t){this.onSave=t,this.modal=null,this.drawCanvas=null,this.ctx=null,this.isDrawing=!1,this.uploadedImage=null,this.activeTab="draw"}open(){this.modal||this.createModal(),this.modal.style.display="flex",this.resetCanvas(),this.switchTab("draw")}close(){this.modal&&(this.modal.style.display="none")}createModal(){let t=document.createElement("div");t.className="signature-modal-overlay",t.innerHTML=`
+(() => {
+  // src/js/utils/signature-modal.js
+  var SignatureModal = class {
+    constructor(onSave) {
+      this.onSave = onSave;
+      this.modal = null;
+      this.drawCanvas = null;
+      this.ctx = null;
+      this.isDrawing = false;
+      this.uploadedImage = null;
+      this.activeTab = "draw";
+    }
+    open() {
+      if (!this.modal) this.createModal();
+      this.modal.style.display = "flex";
+      this.resetCanvas();
+      this.switchTab("draw");
+    }
+    close() {
+      if (this.modal) this.modal.style.display = "none";
+    }
+    createModal() {
+      const overlay = document.createElement("div");
+      overlay.className = "signature-modal-overlay";
+      overlay.innerHTML = `
             <div class="signature-modal">
                 <div class="modal-header">
                     <h3>Create Signature</h3>
@@ -45,4 +69,210 @@
                     <button class="btn-apply">Apply Signature</button>
                 </div>
             </div>
-        `,document.body.appendChild(t),this.modal=t,this.setupListeners(t)}setupListeners(t){t.querySelectorAll(".tab-btn").forEach(i=>{i.onclick=()=>this.switchTab(i.dataset.tab)}),t.querySelector(".close-btn").onclick=()=>this.close(),t.querySelector(".btn-cancel").onclick=()=>this.close();let e=t.querySelector("#sign-pad");this.drawCanvas=e,this.ctx=e.getContext("2d"),this.setupDrawingPad(e),t.querySelector(".clear-btn").onclick=()=>this.resetCanvas();let a=t.querySelector("#drop-zone"),s=t.querySelector("#sig-file-input");a.onclick=()=>s.click(),s.onchange=i=>this.handleFile(i.target.files[0]),a.ondragover=i=>{i.preventDefault(),a.classList.add("dragover")},a.ondragleave=()=>a.classList.remove("dragover"),a.ondrop=i=>{i.preventDefault(),a.classList.remove("dragover"),i.dataTransfer.files[0]&&this.handleFile(i.dataTransfer.files[0])};let r=t.querySelector("#bg-threshold"),l=t.querySelector("#remove-bg-check");r.oninput=()=>this.updatePreview(),l.onchange=i=>{t.querySelector("#threshold-group").style.opacity=i.target.checked?"1":"0.5",this.updatePreview()},t.querySelector(".btn-apply").onclick=()=>this.handleSave()}setupDrawingPad(t){let e=window.devicePixelRatio||1,a=t.getBoundingClientRect();t.width=a.width*e,t.height=a.height*e,this.ctx.scale(e,e),this.ctx.lineCap="round",this.ctx.lineJoin="round",this.ctx.lineWidth=3,this.ctx.strokeStyle="#000000";let s=!1,r=n=>{s=!0,this.ctx.beginPath();let{x:o,y:d}=this.getPos(n,t);this.ctx.moveTo(o,d),this.modal.querySelector(".canvas-placeholder").style.display="none"},l=n=>{if(!s)return;n.preventDefault();let{x:o,y:d}=this.getPos(n,t);this.ctx.lineTo(o,d),this.ctx.stroke()},i=()=>s=!1;t.addEventListener("mousedown",r),t.addEventListener("mousemove",l),t.addEventListener("mouseup",i),t.addEventListener("touchstart",r,{passive:!1}),t.addEventListener("touchmove",l,{passive:!1}),t.addEventListener("touchend",i)}getPos(t,e){let a=e.getBoundingClientRect(),s=t.touches?t.touches[0].clientX:t.clientX,r=t.touches?t.touches[0].clientY:t.clientY;return{x:s-a.left,y:r-a.top}}switchTab(t){this.activeTab=t,this.modal.querySelectorAll(".tab-btn").forEach(e=>e.classList.toggle("active",e.dataset.tab===t)),this.modal.querySelectorAll(".tab-content").forEach(e=>e.classList.toggle("active",e.id===`tab-${t}`)),t==="draw"&&this.resetCanvas()}resetCanvas(){let t=this.drawCanvas.parentElement;this.drawCanvas.style.width="100%",this.drawCanvas.style.height="100%";let e=window.devicePixelRatio||1,a=this.drawCanvas.getBoundingClientRect();this.drawCanvas.width=a.width*e,this.drawCanvas.height=a.height*e,this.ctx.scale(e,e),this.ctx.lineCap="round",this.ctx.lineJoin="round",this.ctx.lineWidth=3,this.modal.querySelector(".canvas-placeholder").style.display="block"}handleFile(t){if(!t)return;let e=new FileReader;e.onload=a=>{let s=new Image;s.onload=()=>{this.uploadedImage=s,this.modal.querySelector("#drop-zone").style.display="none",this.modal.querySelector(".preview-area").style.display="block",this.updatePreview()},s.src=a.target.result},e.readAsDataURL(t)}updatePreview(){if(!this.uploadedImage)return;let t=this.modal.querySelector("#preview-canvas"),e=t.getContext("2d"),a=this.modal.querySelector("#remove-bg-check").checked,s=parseInt(this.modal.querySelector("#bg-threshold").value),l=Math.min(1,400/this.uploadedImage.width);if(t.width=this.uploadedImage.width*l,t.height=this.uploadedImage.height*l,e.drawImage(this.uploadedImage,0,0,t.width,t.height),a){let i=e.getImageData(0,0,t.width,t.height),n=i.data;for(let o=0;o<n.length;o+=4)(n[o]+n[o+1]+n[o+2])/3>s&&(n[o+3]=0);e.putImageData(i,0,0)}}handleSave(){let t;this.activeTab==="draw"?t=this.drawCanvas:t=this.modal.querySelector("#preview-canvas");let e=this.trimCanvas(t),a=e.toDataURL("image/png"),s=e.width/e.height;this.onSave(a,s),this.close()}trimCanvas(t){let e=t.getContext("2d"),a=t.width,s=t.height,l=e.getImageData(0,0,a,s).data,i=null,n=null,o=null,d=null,h,u;for(let c=0;c<l.length;c+=4)l[c+3]!==0&&(h=c/4%a,u=Math.floor(c/4/a),i===null&&(i=u),n===null&&(n=u),o===null&&(o=h),d===null&&(d=h),u<i&&(i=u),u>n&&(n=u),h<o&&(o=h),h>d&&(d=h));if(i===null){let c=document.createElement("canvas");return c.width=1,c.height=1,c}let g=10,b=Math.max(0,i-g),w=Math.max(0,o-g),y=Math.min(s,n+g),p=Math.min(a,d+g)-w,m=y-b,v=document.createElement("canvas");return v.width=p,v.height=m,v.getContext("2d").drawImage(t,w,b,p,m,0,0,p,m),v}};})();
+        `;
+      document.body.appendChild(overlay);
+      this.modal = overlay;
+      this.setupListeners(overlay);
+    }
+    setupListeners(overlay) {
+      overlay.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.onclick = () => this.switchTab(btn.dataset.tab);
+      });
+      overlay.querySelector(".close-btn").onclick = () => this.close();
+      overlay.querySelector(".btn-cancel").onclick = () => this.close();
+      const canvas = overlay.querySelector("#sign-pad");
+      this.drawCanvas = canvas;
+      this.ctx = canvas.getContext("2d");
+      this.setupDrawingPad(canvas);
+      overlay.querySelector(".clear-btn").onclick = () => this.resetCanvas();
+      const dropZone = overlay.querySelector("#drop-zone");
+      const fileInput = overlay.querySelector("#sig-file-input");
+      dropZone.onclick = () => fileInput.click();
+      fileInput.onchange = (e) => this.handleFile(e.target.files[0]);
+      dropZone.ondragover = (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+      };
+      dropZone.ondragleave = () => dropZone.classList.remove("dragover");
+      dropZone.ondrop = (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        if (e.dataTransfer.files[0]) this.handleFile(e.dataTransfer.files[0]);
+      };
+      const thresholdSlider = overlay.querySelector("#bg-threshold");
+      const bgCheck = overlay.querySelector("#remove-bg-check");
+      thresholdSlider.oninput = () => this.updatePreview();
+      bgCheck.onchange = (e) => {
+        overlay.querySelector("#threshold-group").style.opacity = e.target.checked ? "1" : "0.5";
+        this.updatePreview();
+      };
+      overlay.querySelector(".btn-apply").onclick = () => this.handleSave();
+    }
+    setupDrawingPad(canvas) {
+      const ratio = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * ratio;
+      canvas.height = rect.height * ratio;
+      this.ctx.scale(ratio, ratio);
+      this.ctx.lineCap = "round";
+      this.ctx.lineJoin = "round";
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = "#000000";
+      let isDrawing = false;
+      const start = (e) => {
+        isDrawing = true;
+        this.ctx.beginPath();
+        const { x, y } = this.getPos(e, canvas);
+        this.ctx.moveTo(x, y);
+        this.modal.querySelector(".canvas-placeholder").style.display = "none";
+      };
+      const move = (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const { x, y } = this.getPos(e, canvas);
+        this.ctx.lineTo(x, y);
+        this.ctx.stroke();
+      };
+      const end = () => isDrawing = false;
+      canvas.addEventListener("mousedown", start);
+      canvas.addEventListener("mousemove", move);
+      canvas.addEventListener("mouseup", end);
+      canvas.addEventListener("touchstart", start, { passive: false });
+      canvas.addEventListener("touchmove", move, { passive: false });
+      canvas.addEventListener("touchend", end);
+    }
+    getPos(e, canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+    switchTab(tab) {
+      this.activeTab = tab;
+      this.modal.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+      this.modal.querySelectorAll(".tab-content").forEach((c) => c.classList.toggle("active", c.id === `tab-${tab}`));
+      if (tab === "draw") {
+        this.resetCanvas();
+      }
+    }
+    resetCanvas() {
+      const parent = this.drawCanvas.parentElement;
+      this.drawCanvas.style.width = "100%";
+      this.drawCanvas.style.height = "100%";
+      const ratio = window.devicePixelRatio || 1;
+      const rect = this.drawCanvas.getBoundingClientRect();
+      this.drawCanvas.width = rect.width * ratio;
+      this.drawCanvas.height = rect.height * ratio;
+      this.ctx.scale(ratio, ratio);
+      this.ctx.lineCap = "round";
+      this.ctx.lineJoin = "round";
+      this.ctx.lineWidth = 3;
+      this.modal.querySelector(".canvas-placeholder").style.display = "block";
+    }
+    handleFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          this.uploadedImage = img;
+          this.modal.querySelector("#drop-zone").style.display = "none";
+          this.modal.querySelector(".preview-area").style.display = "block";
+          this.updatePreview();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    updatePreview() {
+      if (!this.uploadedImage) return;
+      const canvas = this.modal.querySelector("#preview-canvas");
+      const ctx = canvas.getContext("2d");
+      const removeBg = this.modal.querySelector("#remove-bg-check").checked;
+      const threshold = parseInt(this.modal.querySelector("#bg-threshold").value);
+      const MAX_W = 400;
+      const scale = Math.min(1, MAX_W / this.uploadedImage.width);
+      canvas.width = this.uploadedImage.width * scale;
+      canvas.height = this.uploadedImage.height * scale;
+      ctx.drawImage(this.uploadedImage, 0, 0, canvas.width, canvas.height);
+      if (removeBg) {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+          if (avg > threshold) data[i + 3] = 0;
+        }
+        ctx.putImageData(imageData, 0, 0);
+      }
+    }
+    handleSave() {
+      let sourceCanvas;
+      if (this.activeTab === "draw") {
+        sourceCanvas = this.drawCanvas;
+      } else {
+        sourceCanvas = this.modal.querySelector("#preview-canvas");
+      }
+      const trimmedCanvas = this.trimCanvas(sourceCanvas);
+      const finalDataUrl = trimmedCanvas.toDataURL("image/png");
+      const aspectRatio = trimmedCanvas.width / trimmedCanvas.height;
+      this.onSave(finalDataUrl, aspectRatio);
+      this.close();
+    }
+    trimCanvas(c) {
+      const ctx = c.getContext("2d");
+      const width = c.width;
+      const height = c.height;
+      const imageData = ctx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      let top = null, bottom = null, left = null, right = null;
+      let x, y;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] !== 0) {
+          x = i / 4 % width;
+          y = Math.floor(i / 4 / width);
+          if (top === null) top = y;
+          if (bottom === null) bottom = y;
+          if (left === null) left = x;
+          if (right === null) right = x;
+          if (y < top) top = y;
+          if (y > bottom) bottom = y;
+          if (x < left) left = x;
+          if (x > right) right = x;
+        }
+      }
+      if (top === null) {
+        const empty = document.createElement("canvas");
+        empty.width = 1;
+        empty.height = 1;
+        return empty;
+      }
+      const padding = 10;
+      const trimTop = Math.max(0, top - padding);
+      const trimLeft = Math.max(0, left - padding);
+      const trimBottom = Math.min(height, bottom + padding);
+      const trimRight = Math.min(width, right + padding);
+      const trimWidth = trimRight - trimLeft;
+      const trimHeight = trimBottom - trimTop;
+      const trimmed = document.createElement("canvas");
+      trimmed.width = trimWidth;
+      trimmed.height = trimHeight;
+      trimmed.getContext("2d").drawImage(
+        c,
+        trimLeft,
+        trimTop,
+        trimWidth,
+        trimHeight,
+        // Source rect
+        0,
+        0,
+        trimWidth,
+        trimHeight
+        // Dest rect
+      );
+      return trimmed;
+    }
+  };
+})();

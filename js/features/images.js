@@ -1,1 +1,209 @@
-(()=>{var w=class{constructor(){this.imageAnnotations=new Map}createImageAnnotation(t,e,l,o,a){let d=t.querySelector(`[data-id="${e.id}"]`);d&&d.remove();let s=document.createElement("div");s.className="image-annotation",s.setAttribute("data-id",e.id),s.style.left=`${e.x}px`,s.style.top=`${e.y}px`,s.style.width=`${e.width}px`,s.style.height=`${e.height}px`,this.setupImageElements(s,e,a,l),this.setupImageInteractions(s,e,l,o),t.appendChild(s)}setupImageElements(t,e,l,o){let a=document.createElement("img");a.src=e.data,a.style.width="100%",a.style.height="100%",e.noBackground=e.noBackground||!1,e.threshold=e.threshold||240,e.noBackground&&(a.classList.add("transparent-bg"),t.classList.add("show-threshold"),this.removeBackground(a,e)),t.appendChild(a);let d=document.createElement("div");d.className="threshold-slider-container";let s=document.createElement("input");s.type="range",s.className="threshold-slider",s.min="0",s.max="255",s.value=e.threshold,s.style.display=e.noBackground?"block":"none";let r;s.addEventListener("mousedown",c=>c.stopPropagation()),s.oninput=c=>{c.stopPropagation(),e.threshold=parseInt(c.target.value),r&&clearTimeout(r),r=setTimeout(()=>{this.removeBackground(a,e)},50)},d.appendChild(s),t.appendChild(d);let n=document.createElement("div");n.className="resize-handle",t.appendChild(n);let h=document.createElement("button");h.className="bg-toggle-btn"+(e.noBackground?" active":""),h.textContent="B",h.title="Toggle Background",h.onclick=async c=>{c.stopPropagation(),e.noBackground=!e.noBackground,e.noBackground?(h.classList.add("active"),t.classList.add("show-threshold"),s.style.display="block",await this.removeBackground(a,e)):(h.classList.remove("active"),t.classList.remove("show-threshold"),s.style.display="none",a.src=e.originalData||e.data,a.classList.remove("transparent-bg"))},t.appendChild(h);let p=document.createElement("button");p.className="delete-btn",p.textContent="\xD7",p.onclick=c=>{if(c.stopPropagation(),l){let u=l.modifications.get(o);if(u){let i=u.findIndex(y=>y.id===e.id);i>-1&&u.splice(i,1)}}t.remove()},t.appendChild(p)}async removeBackground(t,e){e.originalData||(e.originalData=e.data);let l=document.createElement("canvas"),o=l.getContext("2d");await new Promise(r=>{let n=new Image;n.onload=()=>{l.width=n.width,l.height=n.height,o.drawImage(n,0,0),r()},n.src=e.originalData});let a=o.getImageData(0,0,l.width,l.height),d=a.data;for(let r=0;r<d.length;r+=4){let n=d[r],h=d[r+1],p=d[r+2];(n+h+p)/3>e.threshold&&(d[r+3]=0)}o.putImageData(a,0,0);let s=l.toDataURL("image/png");t.src=s,e.data=s,t.classList.add("transparent-bg")}setupImageInteractions(t,e,l,o){this.setupDragHandling(t,e,o),this.setupResizeHandling(t,e,o)}setupDragHandling(t,e,l){let o=!1,a,d,s,r;t.addEventListener("mousedown",n=>{n.target.classList.contains("resize-handle")||n.target.classList.contains("delete-btn")||n.target.classList.contains("bg-toggle-btn")||n.target.closest(".threshold-slider-container")||(o=!0,a=n.clientX,d=n.clientY,s=parseFloat(t.style.left)||0,r=parseFloat(t.style.top)||0,t.style.cursor="move",n.preventDefault())}),document.addEventListener("mousemove",n=>{if(!o)return;let h=(n.clientX-a)/l,p=(n.clientY-d)/l,c=s+h,u=r+p;e.x=c,e.y=u,t.style.left=`${c}px`,t.style.top=`${u}px`}),document.addEventListener("mouseup",()=>{o&&(o=!1,t.style.cursor="default")})}setupResizeHandling(t,e,l){let o=t.querySelector(".resize-handle");o.onmousedown=a=>{a.stopPropagation(),a.preventDefault();let d=parseFloat(t.style.width),s=parseFloat(t.style.height),r=e.aspectRatio,n=a.clientX,h=a.clientY,p=u=>{let i=(u.clientX-n)/l,y=(u.clientY-h)/l,g,v;Math.abs(i)>Math.abs(y)?(g=d+i,v=g/r):(v=s+y,g=v*r);let m=20;g>m&&v>m&&(e.width=g,e.height=v,t.style.width=`${g}px`,t.style.height=`${v}px`)},c=()=>{document.removeEventListener("mousemove",p),document.removeEventListener("mouseup",c)};document.addEventListener("mousemove",p),document.addEventListener("mouseup",c)}}};})();
+(() => {
+  // src/js/features/images.js
+  var ImageAnnotationManager = class {
+    constructor() {
+      this.imageAnnotations = /* @__PURE__ */ new Map();
+    }
+    /**
+     * Creates or re-renders an image annotation on the DOM.
+     * UPDATED: Now accepts modManager to handle deletion properly.
+     */
+    createImageAnnotation(container, modification, pageNum, scale, modManager) {
+      const existingAnnotation = container.querySelector(`[data-id="${modification.id}"]`);
+      if (existingAnnotation) {
+        existingAnnotation.remove();
+      }
+      const imgContainer = document.createElement("div");
+      imgContainer.className = "image-annotation";
+      imgContainer.setAttribute("data-id", modification.id);
+      imgContainer.style.left = `${modification.x}px`;
+      imgContainer.style.top = `${modification.y}px`;
+      imgContainer.style.width = `${modification.width}px`;
+      imgContainer.style.height = `${modification.height}px`;
+      this.setupImageElements(imgContainer, modification, modManager, pageNum);
+      this.setupImageInteractions(imgContainer, modification, pageNum, scale);
+      container.appendChild(imgContainer);
+    }
+    setupImageElements(imgContainer, modification, modManager, pageNum) {
+      const img = document.createElement("img");
+      img.src = modification.data;
+      img.style.width = "100%";
+      img.style.height = "100%";
+      modification.noBackground = modification.noBackground || false;
+      modification.threshold = modification.threshold || 240;
+      if (modification.noBackground) {
+        img.classList.add("transparent-bg");
+        imgContainer.classList.add("show-threshold");
+        this.removeBackground(img, modification);
+      }
+      imgContainer.appendChild(img);
+      const sliderContainer = document.createElement("div");
+      sliderContainer.className = "threshold-slider-container";
+      const slider = document.createElement("input");
+      slider.type = "range";
+      slider.className = "threshold-slider";
+      slider.min = "0";
+      slider.max = "255";
+      slider.value = modification.threshold;
+      slider.style.display = modification.noBackground ? "block" : "none";
+      let sliderTimeout;
+      slider.addEventListener("mousedown", (e) => e.stopPropagation());
+      slider.oninput = (e) => {
+        e.stopPropagation();
+        modification.threshold = parseInt(e.target.value);
+        if (sliderTimeout) clearTimeout(sliderTimeout);
+        sliderTimeout = setTimeout(() => {
+          this.removeBackground(img, modification);
+        }, 50);
+      };
+      sliderContainer.appendChild(slider);
+      imgContainer.appendChild(sliderContainer);
+      const handle = document.createElement("div");
+      handle.className = "resize-handle";
+      imgContainer.appendChild(handle);
+      const bgToggleBtn = document.createElement("button");
+      bgToggleBtn.className = "bg-toggle-btn" + (modification.noBackground ? " active" : "");
+      bgToggleBtn.textContent = "B";
+      bgToggleBtn.title = "Toggle Background";
+      bgToggleBtn.onclick = async (e) => {
+        e.stopPropagation();
+        modification.noBackground = !modification.noBackground;
+        if (modification.noBackground) {
+          bgToggleBtn.classList.add("active");
+          imgContainer.classList.add("show-threshold");
+          slider.style.display = "block";
+          await this.removeBackground(img, modification);
+        } else {
+          bgToggleBtn.classList.remove("active");
+          imgContainer.classList.remove("show-threshold");
+          slider.style.display = "none";
+          img.src = modification.originalData || modification.data;
+          img.classList.remove("transparent-bg");
+        }
+      };
+      imgContainer.appendChild(bgToggleBtn);
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.textContent = "\xD7";
+      deleteBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (modManager) {
+          const mods = modManager.modifications.get(pageNum);
+          if (mods) {
+            const idx = mods.findIndex((m) => m.id === modification.id);
+            if (idx > -1) {
+              mods.splice(idx, 1);
+            }
+          }
+        }
+        imgContainer.remove();
+      };
+      imgContainer.appendChild(deleteBtn);
+    }
+    async removeBackground(img, modification) {
+      if (!modification.originalData) {
+        modification.originalData = modification.data;
+      }
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      await new Promise((resolve) => {
+        const tempImg = new Image();
+        tempImg.onload = () => {
+          canvas.width = tempImg.width;
+          canvas.height = tempImg.height;
+          ctx.drawImage(tempImg, 0, 0);
+          resolve();
+        };
+        tempImg.src = modification.originalData;
+      });
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const brightness = (r + g + b) / 3;
+        if (brightness > modification.threshold) {
+          data[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+      const processedImageData = canvas.toDataURL("image/png");
+      img.src = processedImageData;
+      modification.data = processedImageData;
+      img.classList.add("transparent-bg");
+    }
+    setupImageInteractions(imgContainer, modification, pageNum, scale) {
+      this.setupDragHandling(imgContainer, modification, scale);
+      this.setupResizeHandling(imgContainer, modification, scale);
+    }
+    setupDragHandling(imgContainer, modification, scale) {
+      let isDragging = false;
+      let startX, startY;
+      let initialLeft, initialTop;
+      imgContainer.addEventListener("mousedown", (e) => {
+        if (e.target.classList.contains("resize-handle") || e.target.classList.contains("delete-btn") || e.target.classList.contains("bg-toggle-btn") || e.target.closest(".threshold-slider-container")) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = parseFloat(imgContainer.style.left) || 0;
+        initialTop = parseFloat(imgContainer.style.top) || 0;
+        imgContainer.style.cursor = "move";
+        e.preventDefault();
+      });
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = (e.clientX - startX) / scale;
+        const dy = (e.clientY - startY) / scale;
+        const newX = initialLeft + dx;
+        const newY = initialTop + dy;
+        modification.x = newX;
+        modification.y = newY;
+        imgContainer.style.left = `${newX}px`;
+        imgContainer.style.top = `${newY}px`;
+      });
+      document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        imgContainer.style.cursor = "default";
+      });
+    }
+    setupResizeHandling(imgContainer, modification, scale) {
+      const handle = imgContainer.querySelector(".resize-handle");
+      handle.onmousedown = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const startWidth = parseFloat(imgContainer.style.width);
+        const startHeight = parseFloat(imgContainer.style.height);
+        const aspectRatio = modification.aspectRatio;
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const onMouseMove = (e2) => {
+          const dx = (e2.clientX - startX) / scale;
+          const dy = (e2.clientY - startY) / scale;
+          let newWidth, newHeight;
+          if (Math.abs(dx) > Math.abs(dy)) {
+            newWidth = startWidth + dx;
+            newHeight = newWidth / aspectRatio;
+          } else {
+            newHeight = startHeight + dy;
+            newWidth = newHeight * aspectRatio;
+          }
+          const minSize = 20;
+          if (newWidth > minSize && newHeight > minSize) {
+            modification.width = newWidth;
+            modification.height = newHeight;
+            imgContainer.style.width = `${newWidth}px`;
+            imgContainer.style.height = `${newHeight}px`;
+          }
+        };
+        const onMouseUp = () => {
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+        };
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      };
+    }
+  };
+})();

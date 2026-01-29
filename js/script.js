@@ -1,1 +1,86 @@
-(()=>{var s=document.querySelector(".navbar");window.addEventListener("scroll",()=>{window.scrollY>50?s.classList.add("scrolled"):s.classList.remove("scrolled")});document.addEventListener("DOMContentLoaded",function(){m();let t=new Date().getFullYear(),n=document.querySelector("#year");n&&(n.innerHTML=t)});async function m(){try{let n=await(await fetch("/pricing.json")).json();g(n)}catch(t){console.error("Error fetching pricing:",t)}}function g(t){let n=t.plans.lifetime,c=t.plans.annual,o=t.offer,e={regularPrice:document.querySelector(".regular-price"),regularPriceAnnual:document.querySelector(".regular-price-annual"),discountedPrice:document.querySelector(".discounted-price"),discountedPriceAnnual:document.querySelector(".discounted-price-annual"),offerName:document.querySelector(".offer-name"),offerTagline:document.querySelector(".offer-tagline")};e.regularPrice&&(e.regularPrice.textContent=`$${n.price}`),e.discountedPrice&&(e.discountedPrice.textContent=`$${n.discountedPrice}`),e.regularPriceAnnual&&(e.regularPriceAnnual.textContent=`$${c.price}`),e.discountedPriceAnnual&&(e.discountedPriceAnnual.textContent=`$${c.discountedPrice}`),o.isActive&&(e.offerName&&(e.offerName.textContent=o.name),e.offerTagline&&(e.offerTagline.textContent=o.tagline),o.endDate&&P(o.endDate))}function P(t){let n=document.querySelector(".offer-countdown");if(!n)return;let c=new Date(t+" PDT").getTime(),o=setInterval(()=>{let i=new Date().toLocaleString("en-US",{timeZone:"America/Los_Angeles"}),r=c-new Date(i).getTime();if(r<=0){clearInterval(o),n.textContent="Offer ended";return}let a=Math.floor(r/(1e3*60*60*24)),u=Math.floor(r%(1e3*60*60*24)/(1e3*60*60)),l=Math.floor(r%(1e3*60*60)/(1e3*60)),d=Math.floor(r%(1e3*60)/1e3),f=`${a}d ${u}h ${l}m ${d}s`;n.textContent=f},1e3),e=new MutationObserver(i=>{i.forEach(r=>{r.removedNodes.forEach(a=>{a.contains(n)&&(clearInterval(o),e.disconnect())})})});e.observe(document.body,{childList:!0,subtree:!0})}})();
+(() => {
+  // src/js/script.js
+  var navbar = document.querySelector(".navbar");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+    fetchPricing();
+    const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+    const copyrightElement = document.querySelector("#year");
+    if (copyrightElement) {
+      copyrightElement.innerHTML = currentYear;
+    }
+  });
+  async function fetchPricing() {
+    try {
+      const response = await fetch("/pricing.json");
+      const pricing = await response.json();
+      updatePricingUI(pricing);
+    } catch (error) {
+      console.error("Error fetching pricing:", error);
+    }
+  }
+  function updatePricingUI(pricing) {
+    const lifetimePlan = pricing.plans.lifetime;
+    const annualPlan = pricing.plans.annual;
+    const offer = pricing.offer;
+    const elements = {
+      regularPrice: document.querySelector(".regular-price"),
+      regularPriceAnnual: document.querySelector(".regular-price-annual"),
+      discountedPrice: document.querySelector(".discounted-price"),
+      discountedPriceAnnual: document.querySelector(".discounted-price-annual"),
+      offerName: document.querySelector(".offer-name"),
+      offerTagline: document.querySelector(".offer-tagline")
+    };
+    if (elements.regularPrice) elements.regularPrice.textContent = `$${lifetimePlan.price}`;
+    if (elements.discountedPrice) elements.discountedPrice.textContent = `$${lifetimePlan.discountedPrice}`;
+    if (elements.regularPriceAnnual) elements.regularPriceAnnual.textContent = `$${annualPlan.price}`;
+    if (elements.discountedPriceAnnual) elements.discountedPriceAnnual.textContent = `$${annualPlan.discountedPrice}`;
+    if (offer.isActive) {
+      if (elements.offerName) elements.offerName.textContent = offer.name;
+      if (elements.offerTagline) elements.offerTagline.textContent = offer.tagline;
+      if (offer.endDate) {
+        updateCountdown(offer.endDate);
+      }
+    }
+  }
+  function updateCountdown(endDate) {
+    const countdownEl = document.querySelector(".offer-countdown");
+    if (!countdownEl) return;
+    const end = (/* @__PURE__ */ new Date(endDate + " PDT")).getTime();
+    const timer = setInterval(() => {
+      const now = (/* @__PURE__ */ new Date()).toLocaleString("en-US", { timeZone: "America/Los_Angeles" });
+      const diff = end - new Date(now).getTime();
+      if (diff <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "Offer ended";
+        return;
+      }
+      const days = Math.floor(diff / (1e3 * 60 * 60 * 24));
+      const hours = Math.floor(diff % (1e3 * 60 * 60 * 24) / (1e3 * 60 * 60));
+      const minutes = Math.floor(diff % (1e3 * 60 * 60) / (1e3 * 60));
+      const seconds = Math.floor(diff % (1e3 * 60) / 1e3);
+      const countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      countdownEl.textContent = countdown;
+    }, 1e3);
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.removedNodes.forEach((node) => {
+          if (node.contains(countdownEl)) {
+            clearInterval(timer);
+            observer.disconnect();
+          }
+        });
+      });
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+})();
