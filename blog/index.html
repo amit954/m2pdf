@@ -40,41 +40,50 @@
 </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top ">
+    <nav class="navbar navbar-expand-lg fixed-top " 
+     style="border-bottom: 1px solid #e5e5e5; background-color: #ffffff;">
     
-    <div class="container-fluid px-4 d-flex align-items-center">
-        <a class="navbar-brand" href="/">
-            <img src="/img/m2pdf-logo.svg" width="150" alt="m2pdf logo"/>
-        </a>
+    <div class="container-fluid px-3 px-lg-4">
+        
+        <div class="d-flex align-items-center gap-2 gap-md-3">
+            
+            <a class="navbar-brand me-0" href="/">
+                <img src="/img/m2pdf-logo.svg" alt="m2pdf logo" width="120" class="d-lg-none"/>
+                <img src="/img/m2pdf-logo.svg" alt="m2pdf logo" width="150" class="d-none d-lg-block"/>
+            </a>
 
-        <ul class="navbar-nav flex-row px-3 position-relative">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle py-0 d-flex align-items-center gap-2 no-caret" 
-                   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
-                    <span>Tools</span>
-                </a>
-                <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
-                    style="top: 100%; left: 0; min-width: 200px; z-index: 1050; margin-top: 5px;">
-                    <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
-                    <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
-                </ul>
-            </li>
-        </ul>
+            <ul class="navbar-nav flex-row px-2 px-md-3">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle py-0 d-flex align-items-center gap-2 no-caret" 
+                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                       style="white-space: nowrap;">
+                        <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
+                        <span>Tools</span>
+                    </a>
+                    <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
+                        style="min-width: 200px; margin-top: 10px;">
+                        <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
+                        <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
         <button class="navbar-toggler border-0 shadow-none ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3 pt-3 pt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/#features">Features</a></li>
                 <li class="nav-item"><a class="nav-link" href="/#pricing">Pricing</a></li>
-                
-                
 
+                <li class="nav-item d-none d-lg-block">
+                    <a class="chrome-store-btn chrome-store-btn-dark ms-lg-3 m2pdf-cta" href="#" target="_blank">Add to Chrome</a>
+                </li>
 
-                </ul>
+                
+            </ul>
         </div>
     </div>
 </nav>
@@ -173,10 +182,10 @@
     </div>
 </footer>
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/js/fonts.js"></script>
-    <script src="/js/script.js"></script>
     
 </body>
 </html>
