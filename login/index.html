@@ -3,9 +3,9 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn how to convert emails to PDF with one click using m2pdf. Save emails locally with attachments in seconds.">
-    <title>How to Use M2pdf | m2pdf</title>
-    <link rel="canonical" href="https://m2pdf.com/how-to-use/" />
+    <meta name="description" content="Sign in to m2pdf to convert emails and manage your credits.">
+    <title>Login - m2pdf | m2pdf</title>
+    <link rel="canonical" href="https://m2pdf.com/login/" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -15,16 +15,7 @@
     <link rel="manifest" href="/favicon/site.webmanifest" />
         
     
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="How to Use M2pdf">
-    <meta property="og:description" content="Learn how to convert emails to PDF with one click using m2pdf. Save emails locally with attachments in seconds.">
-    <meta property="og:image" content="">
     
-    
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="How to Use M2pdf">
-    <meta name="twitter:description" content="Learn how to convert emails to PDF with one click using m2pdf. Save emails locally with attachments in seconds.">
     
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -122,36 +113,189 @@
 </nav>
     
     
-    <section style="margin-top: 150px;">
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-8">
-                    <h1 class="display-4 fw-bold mb-4">How to Use M2pdf</h1>
-                    <p class="lead mb-4 text-secondary">Follow this simple guide to convert your Gmail emails to PDF in seconds</p>
-                </div>
-            </div>
+<div class="container px-3 login-spacer">
+    <div class="login-card mx-auto">
+        
+        <div class="text-center mb-4">
+            <a href="/" class="d-inline-block mb-4">
+                <img src="/img/m2pdf-logo.svg" alt="m2pdf" width="160">
+            </a>
+            <h4 class="fw-bold mb-2" id="formTitle">Welcome Back</h4>
+            <p class="text-muted small" id="formSubtitle">Sign in to access your tools and credits.</p>
         </div>
-    </section>
 
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <!-- Video Container -->
-                    <div class="ratio ratio-16x9 rounded-4 shadow-lg overflow-hidden mb-5">
-                        <iframe 
-                            src="https://www.youtube.com/embed/XgRF-20SVXo?si=QVol9DsvOVF26h2E" 
-                            title="How to Use m2pdf - Complete Guide"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    </div>
-            </div>
+        <button id="googleLoginBtn" class="btn btn-google w-100 py-2 d-flex align-items-center justify-content-center gap-2 rounded-pill mb-3">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="20" height="20">
+            <span>Continue with Google</span>
+        </button>
+
+        <div class="d-flex align-items-center my-3">
+            <hr class="flex-grow-1 m-0 text-muted" style="opacity: 0.2;">
+            <span class="px-2 text-muted small">OR</span>
+            <hr class="flex-grow-1 m-0 text-muted" style="opacity: 0.2;">
         </div>
-    </section>
 
- 
+        <form id="authForm">
+            <div class="mb-3">
+                <label class="form-label small text-muted">Email Address</label>
+                <input type="email" id="emailInput" class="form-control" required placeholder="name@example.com">
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label small text-muted">Password</label>
+                <input type="password" id="passwordInput" class="form-control" required placeholder="••••••••">
+            </div>
+
+            <div id="authError" class="alert alert-danger py-2 small d-none mb-3"></div>
+
+            <button type="submit" id="submitBtn" class="btn btn-dark w-100 py-2 rounded-pill">
+                Sign In
+            </button>
+        </form>
+
+        <div class="text-center mt-4 pt-3 border-top">
+            <p class="small text-muted mb-0" id="toggleText">
+                Don't have an account? 
+                <a href="#" id="toggleBtn" class="text-decoration-none fw-bold text-dark">Sign up for free</a>
+            </p>
+            <a href="/" class="text-decoration-none small text-muted d-block mt-3">
+                <i class="bi bi-arrow-left me-1"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider,signInWithEmailAndPassword, 
+        createUserWithEmailAndPassword,sendEmailVerification,signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyCE2sLvDfYvUo1qK4Kxsq-7hB2Ricss6p4",
+    authDomain: "m2pdf-446213.firebaseapp.com",
+    projectId: "m2pdf-446213",
+    storageBucket: "m2pdf-446213.firebasestorage.app",
+    messagingSenderId: "107050599600",
+    appId: "1:107050599600:web:91f3d6eee3dc5379322775",
+    measurementId: "G-WV1V87JPGS"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    // DOM Elements
+    const authForm = document.getElementById('authForm');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const googleBtn = document.getElementById('googleLoginBtn');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const formTitle = document.getElementById('formTitle');
+    const formSubtitle = document.getElementById('formSubtitle');
+    const authError = document.getElementById('authError');
+
+    let isSignUp = false; // State to track mode
+
+    // 1. Handle Form Submit (Email/Pass)
+    authForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        authError.classList.add('d-none');
+        
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        
+        // Basic Validation
+        if(password.length < 6) {
+            showError("Password must be at least 6 characters");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+        if (isSignUp) {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            await sendEmailVerification(user);
+
+            alert("Account created! We sent a verification link to " + email + ". Please check your inbox.");
+        } else {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            if (!userCredential.user.emailVerified) {
+            }
+        }
+        window.location.href = "/";
+        } catch (error) {
+            console.error(error);
+            showError(getFriendlyErrorMessage(error.code));
+            setLoading(false);
+        }
+    });
+
+
+    googleBtn.addEventListener('click', async () => {
+        try {
+            googleBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Signing in...';
+            googleBtn.disabled = true;
+            await signInWithPopup(auth, provider);
+            window.location.href = "/";
+        } catch (error) {
+            console.error(error);
+            showError("Google Sign-In failed. Please try again.");
+            googleBtn.innerHTML = '<img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" height="20" class="me-2"> Continue with Google';
+            googleBtn.disabled = false;
+        }
+    });
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isSignUp = !isSignUp;
+        
+        if(isSignUp) {
+            formTitle.innerText = "Create Account";
+            formSubtitle.innerText = "Get started with 20 free credits.";
+            submitBtn.innerText = "Sign Up";
+            toggleBtn.innerText = "Log in";
+            document.getElementById('toggleText').childNodes[0].nodeValue = "Already have an account? ";
+        } else {
+            formTitle.innerText = "Welcome Back";
+            formSubtitle.innerText = "Sign in to access your tools.";
+            submitBtn.innerText = "Sign In";
+            toggleBtn.innerText = "Sign up for free";
+            document.getElementById('toggleText').childNodes[0].nodeValue = "Don't have an account? ";
+        }
+        authError.classList.add('d-none');
+    });
+
+    function showError(msg) {
+        authError.textContent = msg;
+        authError.classList.remove('d-none');
+    }
+
+    function getFriendlyErrorMessage(code) {
+        switch (code) {
+            case 'auth/email-already-in-use': return 'That email is already registered. Please log in.';
+            case 'auth/invalid-email': return 'Invalid email address.';
+            case 'auth/user-not-found': return 'No account found with this email.';
+            case 'auth/wrong-password': return 'Incorrect password.';
+            case 'auth/weak-password': return 'Password should be at least 6 characters.';
+            case 'auth/invalid-credential': return 'Invalid email or password.'; // New Firebase error
+            default: return 'Login failed. Please check your details.';
+        }
+    }
+
+    function setLoading(isLoading) {
+        if(isLoading) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.innerText = isSignUp ? "Sign Up" : "Sign In";
+        }
+    }
+</script> 
     
     <footer class="hideable py-5 bg-dark text-white ">
     <div class="container">

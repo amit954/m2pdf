@@ -321,10 +321,10 @@
       $("#bcc-container").toggle(!!i), i && $("#email-bcc").text(i);
       const s = n.getReplyTo();
       $("#reply-to-container").toggle(!!s), s && $("#email-reply-to").text(s);
-      const l = n.getAttachments();
-      if (currentAttachments = l, l.length > 0) {
+      const r = n.getAttachments();
+      if (currentAttachments = r, r.length > 0) {
         const e2 = $("#attachments-list");
-        e2.empty(), l.forEach(((t2, n2) => {
+        e2.empty(), r.forEach(((t2, n2) => {
           const a2 = formatFileSize(t2.filesize);
           e2.append(`
                         <div class="attachment-item">
@@ -336,15 +336,10 @@
                             </a>
                         </div>
                     `);
-        })), $("#attachments-section").show(), $("#download-all").toggle(l.length > 1), l.length > 1 && $("#download-all").off("click").on("click", window.downloadAllAttachments);
+        })), $("#attachments-section").show(), $("#download-all").toggle(r.length > 1), r.length > 1 && $("#download-all").off("click").on("click", window.downloadAllAttachments);
       } else $("#attachments-section").hide(), $("#download-all").hide();
-      const r = n.getMessageHtml(), c = n.getMessageText();
-      if (r) {
-        displayEmailContent(r.replace(/(\r\n|\n|\r)/g, "").replace(/\s+/g, " ").replace(/> +</g, "><").replace(/<br\s*\/?>/gi, "<br>").replace(/(<br>){3,}/gi, "<br><br>").trim(), true);
-      } else if (c) {
-        displayEmailContent(c.replace(/(\r\n|\n|\r)+/g, "\n").replace(/\n\s+\n/g, "\n\n").replace(/\s+/g, " ").replace(/\n{3,}/g, "\n\n").trim(), false);
-      } else displayEmailContent("(No content)", false);
-      $("#email-display").show(), setTimeout((() => {
+      const l = n.getMessageHtml(), c = n.getMessageText();
+      l ? displayEmailContent(l.replace(/(\r\n|\n|\r)/g, "").replace(/\s+/g, " ").replace(/> +</g, "><").replace(/<br\s*\/?>/gi, "<br>").replace(/(<br>){3,}/gi, "<br><br>").trim(), true) : displayEmailContent(c ? c.replace(/(\r\n|\n|\r)+/g, "\n").replace(/\n\s+\n/g, "\n\n").replace(/\s+/g, " ").replace(/\n{3,}/g, "\n\n").trim() : "(No content)", false), $("#email-display").show(), setTimeout((() => {
         document.getElementById("email-display").scrollIntoView({ behavior: "smooth", block: "start" });
       }), 100);
     } catch (e2) {
@@ -354,14 +349,14 @@
     else $("#error-message").text("Please drop an .eml file").show();
   }
   function createPrintVersion() {
-    const e = $("#email-subject").text(), t = $("#email-from").text(), n = $("#email-to").text(), a = $("#email-date").text(), o = $("#email-cc").text(), i = $("#email-bcc").text(), s = $("#email-reply-to").text(), l = $("#email-content").html();
-    let r = "";
+    const e = $("#email-subject").text(), t = $("#email-from").text(), n = $("#email-to").text(), a = $("#email-date").text(), o = $("#email-cc").text(), i = $("#email-bcc").text(), s = $("#email-reply-to").text(), r = $("#email-content").html();
+    let l = "";
     if ($("#attachments-section").is(":visible")) {
       const e2 = [];
       $("#attachments-list .attachment-item").each((function() {
         const t2 = $(this).find(".attachment-name").text(), n2 = $(this).find(".attachment-size").text();
         e2.push(`<div style="display:flex;margin:8px 0;"><span style="flex-grow:1;">${t2}</span><span style="color:#5f6368;margin-left:10px;">${n2}</span></div>`);
-      })), e2.length > 0 && (r = `
+      })), e2.length > 0 && (l = `
                 <div style="border-top: 1px solid #e0e0e0; padding-top: 10px; margin-top: 20px;">
                     <h3 style="font-size: 16px; margin-bottom: 10px;">Attachments</h3>
                     ${e2.join("")}
@@ -450,10 +445,10 @@
                 </div>
                 
                 <div class="email-content">
-                    ${l}
+                    ${r}
                 </div>
                 
-                ${r}
+                ${l}
             </div>
             
             <script>
@@ -472,8 +467,7 @@
     `), c.document.close();
   }
   function preparePrint() {
-    $(".email-header, .email-content").addClass("no-page-break"), $(".email-content").css({ "padding-top": "0", "margin-top": "0" }), $("#email-display").css({ "margin-top": "0", "padding-top": "0" }), $("body").addClass("printing");
-    $("#email-content").height() > 1e3 && $("html, body").css("height", "auto"), /Chrome/.test(navigator.userAgent) && ($(".email-header").css("position", "relative"), $(".email-content").css("position", "relative"));
+    $(".email-header, .email-content").addClass("no-page-break"), $(".email-content").css({ "padding-top": "0", "margin-top": "0" }), $("#email-display").css({ "margin-top": "0", "padding-top": "0" }), $("body").addClass("printing"), $("#email-content").height() > 1e3 && $("html, body").css("height", "auto"), /Chrome/.test(navigator.userAgent) && ($(".email-header").css("position", "relative"), $(".email-content").css("position", "relative"));
   }
   function restorePage() {
     $("body").removeClass("printing"), $("html, body").css("height", ""), $(".email-header").css("position", ""), $(".email-content").css("position", "");
