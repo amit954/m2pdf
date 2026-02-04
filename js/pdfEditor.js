@@ -37,5 +37,7 @@
     hideable.forEach((el) => el.style.display = "none");
     editorContainer.style.display = "block";
     filenameDisplay.textContent = file.name;
+    const event = new Event("change", { bubbles: true });
+    fileInput.dispatchEvent(event);
   }
 })();
