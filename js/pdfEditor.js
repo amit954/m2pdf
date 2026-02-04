@@ -30,14 +30,13 @@
     });
     dropZone.addEventListener("drop", (e) => {
       const dt = e.dataTransfer;
-      processFile(dt.files[0]);
+      processFile(dt.files);
     });
   }
-  function processFile(file) {
+  function processFile(files) {
     hideable.forEach((el) => el.style.display = "none");
     editorContainer.style.display = "block";
-    filenameDisplay.textContent = file.name;
-    fileInput.files = file;
+    fileInput.files = files[0];
     const event = new Event("change", { bubbles: true });
     fileInput.dispatchEvent(event);
   }
