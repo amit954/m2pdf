@@ -3,8 +3,8 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert Gmail emails as PDF with attachments locally and securely. Batch export your emails as PDFs in seconds with our Chrome extension.">
-    <title>Save Emails as PDF with One Click | m2pdf</title>
+    <meta name="description" content="Save Gmail emails as PDF with attachments. Export and backup emails by label, sender, or search. Works locally in your browser.">
+    <title>Save Gmail Emails as PDF with Attachments | M2pdf</title>
     <link rel="canonical" href="https://m2pdf.com/" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
@@ -16,15 +16,15 @@
         
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Save Emails as PDF with One Click">
-    <meta property="og:description" content="Convert Gmail emails as PDF with attachments locally and securely. Batch export your emails as PDFs in seconds with our Chrome extension.">
+    <meta property="og:title" content="Save Gmail Emails as PDF with Attachments">
+    <meta property="og:description" content="Save Gmail emails as PDF with attachments. Export and backup emails by label, sender, or search. Works locally in your browser.">
     <meta property="og:image" content="https://m2pdf.com/img/m2pdf_og_img.jpg">
     
     
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Save Emails as PDF with One Click">
-    <meta name="twitter:description" content="Convert Gmail emails as PDF with attachments locally and securely. Batch export your emails as PDFs in seconds with our Chrome extension.">
+    <meta name="twitter:title" content="Save Gmail Emails as PDF with Attachments">
+    <meta name="twitter:description" content="Save Gmail emails as PDF with attachments. Export and backup emails by label, sender, or search. Works locally in your browser.">
     
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -55,25 +55,26 @@
         <div class="d-flex align-items-center gap-2 gap-md-3">
             
             <a class="navbar-brand me-0" href="/">
-                <img src="/img/m2pdf-logo.svg" alt="m2pdf logo" width="120" class="d-lg-none"/>
-                <img src="/img/m2pdf-logo.svg" alt="m2pdf logo" width="150" class="d-none d-lg-block"/>
+                <img src="/img/m2pdf-logo.svg" alt="M2pdf logo" width="120" class="d-lg-none"/>
+                <img src="/img/m2pdf-logo.svg" alt="M2pdf logo" width="150" class="d-none d-lg-block"/>
             </a>
 
-            <ul class="navbar-nav flex-row px-2 px-md-3">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle py-0 d-flex align-items-center gap-2 no-caret" 
-                       href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                       style="white-space: nowrap;">
-                        <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
-                        <span>Tools</span>
-                    </a>
-                    <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
-                        style="min-width: 200px; margin-top: 10px;">
-                        <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
-                        <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
-                    </ul>
-                </li>
-            </ul>
+<ul class="navbar-nav flex-row px-2 px-md-3">
+    <li class="nav-item dropdown hover-dropdown">
+        <a class="nav-link py-0 d-flex align-items-center gap-2" 
+           href="/tools/" 
+           style="white-space: nowrap;">
+            <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
+            <span>Tools</span>
+            <i class="bi bi-caret-down-fill ms-1" style="font-size: 0.7rem; transform: translateY(1px);"></i>
+        </a>
+        <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
+            style="min-width: 200px; margin-top: 0; top: 100%;">
+            <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
+            <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
+        </ul>
+    </li>
+</ul>
         </div>
 
         <button class="navbar-toggler border-0 shadow-none ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -84,7 +85,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3 pt-3 pt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/#features">Features</a></li>
                 <li class="nav-item"><a class="nav-link" href="/#pricing">Pricing</a></li>
-                <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+                
 
                 <!-- <li class="nav-item d-none d-lg-block">
                     <a class="chrome-store-btn chrome-store-btn-dark ms-lg-3 m2pdf-cta" href="#" target="_blank">Add to Chrome</a>
@@ -128,16 +129,19 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4">
-                <h1 class="display-4 fw-bold mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); color: #2D3748;">Save
-                    Emails as PDF<br>with One Click</h1>
-                <p class="lead mb-4 text-secondary" style="max-width: 510px;">Convert and Save your important emails as
-                    PDF locally. Fast, secure, and easy to use Chrome extension.</p>
+                <h1 class="display-4 fw-bold mb-4" style="font-size: clamp(2.5rem, 5vw, 3rem); color: #2D3748;">Save Gmail Emails as PDF<br>with Attachments</h1>
+                <p class="lead mb-4 text-secondary" style="max-width: 510px;">Save clean, readable PDFs from Gmail with attachments included. Export emails by label, sender, or search. Everything runs locally so your data never leaves your browser.</p>
                 <div class="d-flex gap-3">
                     <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
-                        target="_blank" class="chrome-store-btn chrome-store-btn-dark">
+                        target="_blank" rel="noopener" class="chrome-store-btn chrome-store-btn-dark">
                         <img src="/img/chrome-logo.svg" alt="Chrome" width="24" height="24">
-                        Add to Chrome - It's Free
+                        Add to Chrome
                     </a>
+                </div>
+                <div class="small text-secondary mt-3">
+                <div class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>No credit card required</div>
+                <div class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Works directly inside Gmail</div>
+                <div class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>No data leaves your browser</div>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -182,13 +186,24 @@
     </div>
 </section>
 
+<section class="py-5">
+  <div class="container text-center" style="max-width: 760px;">
+    <h2 class="display-5 fw-bold mb-3">Export Emails Exactly As You See Them</h2>
+    <p class="lead text-secondary">
+      Works with Gmail search filters like sender, label, or date. Export everything in one click. Backup your Gmail emails as clean, organized PDFs for offline use.
+    </p>
+  </div>
+</section>
+
+
+
 
 <!-- Features Section -->
 <section id="features" class="py-5">
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold mb-3">Why Use M2pdf?</h2>
-            <p class="lead text-secondary">Everything you need to save and organize your emails</p>
+            <h2 class="display-5 fw-bold mb-3">Why People Use M2pdf</h2>
+            <p class="lead text-secondary">Save, export, and backup Gmail emails without leaving your browser</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-3">
@@ -249,7 +264,7 @@
         <div class="row align-items-center mb-5">
             <div class="col-lg-6">
                 <h2 class="h1 mb-4">Simple One-Click Conversion</h2>
-                <p class="lead mb-4">Select any email in Gmail and click the m2pdf icon. Export emails to editable PDFs
+                <p class="lead mb-4">Open any email or search in Gmail, click the M2pdf icon to export everything in that view to editable PDFs
                     in seconds.</p>
                 <ul class="list-unstyled">
                     <li class="mb-3">
@@ -275,7 +290,7 @@
         <div class="row align-items-center mb-5 flex-lg-row-reverse">
             <div class="col-lg-6">
                 <h2 class="h1 mb-4">Batch Convert Multiple Emails</h2>
-                <p class="lead mb-4">Export one email or select multiple emails and convert them all at once. Perfect to backup Gmail folders and archive conversations.</p>
+                <p class="lead mb-4">Export entire Gmail labels or search results. Ideal for backups and long term storage.</p>
                 <ul class="list-unstyled">
                     <li class="mb-3">
                         <i class="bi bi-check-circle-fill text-primary me-2"></i>
@@ -302,7 +317,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <h2 class="h1 mb-4">Customize Your PDFs</h2>
-                <p class="lead mb-4">Make your PDFs look exactly how you want with m2pdf's powerful customization
+                <p class="lead mb-4">Make your PDFs look exactly how you want with M2pdf's powerful customization
                     options.</p>
                 <ul class="list-unstyled">
                     <li class="mb-3">
@@ -366,6 +381,8 @@
 
         </div>
     </div>
+
+
 </section>
 
 <!-- Pricing Section -->
@@ -373,7 +390,7 @@
     <div class="container py-5">
         <div class="text-center mb-5">
             <h2 class="display-5 fw-bold mb-3">Simple, Transparent Pricing</h2>
-            <p class="lead text-secondary">Choose the plan that works best for you</p>
+            <p class="lead text-secondary">Used for email backups, client records, audits, and documentation</p>
             <span class="popular-badge bg-danger offer-name"></span>
             <div class="offer-tagline"></div>
             <div class="text-danger fw-bold offer-countdown"></div>
@@ -394,11 +411,11 @@
                                 <span>Lifetime updates</span>
                             </div>
                             <div class="text-muted small mt-3">
-                                Perfect for trying out m2pdf
+                                Perfect for trying out M2pdf
                             </div>
                         </div>
                         <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
-                            target="_blank" class="btn btn-outline-primary btn-lg mt-auto">Start Free</a>
+                            target="_blank" rel="noopener" class="btn btn-outline-primary btn-lg mt-auto">Start Free</a>
                     </div>
                 </div>
             </div>
@@ -431,7 +448,7 @@
                             </div>
                         </div>
                         <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
-                            target="_blank" class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="annual">
+                            target="_blank" rel="noopener" class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="annual">
                             <i class="bi bi-download me-2"></i>Install Extension
                         </a>
                         <div class="mt-3 text-muted small">7-day money-back guarantee</div>
@@ -461,7 +478,7 @@
                             </div>
                         </div>
                         <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
-                            target="_blank" class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="lifetime">
+                            target="_blank" rel="noopener" class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="lifetime">
                             <i class="bi bi-download me-2"></i>Install Extension
                         </a>
                         <div class="mt-3 text-muted small">7-day money-back guarantee</div>
@@ -477,7 +494,7 @@
     <div class="container py-5">
         <div class="text-center mb-5">
             <h2 class="display-5 fw-bold mb-3">Frequently Asked Questions</h2>
-            <p class="lead text-secondary">Everything you need to know about m2pdf</p>
+            <p class="lead text-secondary">Everything you need to know about M2pdf</p>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -543,20 +560,32 @@
             </div>
         </div>
     </div>
+</section>
+
+<section class="pb-5 text-center">
+    <div class="container">
+            <p class="text-center mt-5 text-secondary">
+Learn how to <a href="/save-gmail-as-pdf/">save Gmail emails as PDF</a> or
+<a href="/gmail-backup/">backup your Gmail emails</a>.
+</p>
+    </div>
 </section> 
     
     <footer class="hideable py-5 bg-dark text-white ">
     <div class="container">
         <div class="row">
+
             <div class="col-lg-4 mb-4 mb-lg-0">
-                
                 <a href="/">
-                    <h5 class="mb-3">m2pdf</h5>
+                    <h5 class="mb-3">M2pdf</h5>
                 </a>
-                
-                <p class="">Save your important emails locally with our secure Chrome extension.</p>
+                <p>
+                    Convert Gmail emails to clean PDFs with attachments. Export by label, sender, or search. Works locally for full privacy.
+                </p>
             </div>
+
             <div class="col-lg-2 mb-4 mb-lg-0">
+                <h6 class="text-uppercase small mb-3">Company</h6>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="/about/" class="text-decoration-none">About</a></li>
                     <li class="mb-2"><a href="/pricing/" class="text-decoration-none">Pricing</a></li>
@@ -564,26 +593,43 @@
                     <li class="mb-2"><a href="/blog/" class="text-decoration-none">Blog</a></li>
                 </ul>
             </div>
+
             <div class="col-lg-2 mb-4 mb-lg-0">
+                <h6 class="text-uppercase small mb-3">Tools</h6>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="/pdf-editor/" class="text-decoration-none">Edit & Sign PDF</a></li>
-                    
-                    <li class="mb-2"><a href="/eml-to-pdf-converter/" class="text-decoration-none">Eml to PDF Converter</a></li>
+                    <li class="mb-2"><a href="/eml-to-pdf-converter/" class="text-decoration-none">EML to PDF Converter</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 mb-4 mb-lg-0">
+                <h6 class="text-uppercase small mb-3">Guides</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/save-gmail-as-pdf/" class="text-decoration-none">Save Gmail as PDF</a></li>
+                    <li class="mb-2"><a href="/gmail-backup/" class="text-decoration-none">Gmail Backup</a></li>
                     <li class="mb-2"><a href="/how-to-use/" class="text-decoration-none">How to Use</a></li>
                 </ul>
             </div>
-            <div class="col-lg-4">
-                <h5 class="mb-3">Install M2pdf Extension</h5>
-                <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" target="_blank" class="chrome-store-btn bg-white d-inline-flex align-items-center">
+
+            <div class="col-lg-2">
+                <h6 class="text-uppercase small mb-3">Get Started</h6>
+                <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
+                   target="_blank"
+                   class="chrome-store-btn bg-white d-inline-flex align-items-center">
                     <img src="/img/chrome-logo.svg" alt="Chrome" width="24" height="24">
-                    Add to Chrome - It's Free
+                    Add to Chrome
                 </a>
+                <p class="small text-muted mt-2">
+                    No login required. Runs locally in your browser.
+                </p>
             </div>
+
         </div>
-    
-        <div class="row align-items-center">
+
+        <!-- Bottom Row -->
+        <div class="row align-items-center mt-4">
             <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0">© <span id="year"></span> m2pdf. All rights reserved.</p>
+                <p class="mb-0">© <span id="year"></span> M2pdf. All rights reserved.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <a href="/terms/" class="text-decoration-none me-3">Terms</a>
