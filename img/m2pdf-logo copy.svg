@@ -1,4 +1,4 @@
-<svg viewBox="30 30 120 100" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="30 30 122 100" width="500" height="500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gradFireBottom" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#6a1b9a;stop-opacity:0.9" />
