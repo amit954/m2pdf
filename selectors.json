@@ -1,17 +1,17 @@
 {
   "version": "1.0",
   "selectors": {
-    "toolbar": "[gh='mtb']",
-    "emailRow": "tr[role='row']",
-    "threadId": "[data-thread-id]",
-    "legacyMessageId": "[data-legacy-message-id]",
-    "checkbox": "div[role='checkbox'][aria-checked='true']",
-    "mainRole": "[role='main']",
-    "messageBody": ".ii.gt",
-    "printViewBody": "<body[^>]*>([\\s\\S]*?)<\\/body>",
-    "msgClass": "message",
-    "recipientClass": "recipient",
-    "attClass": "att",
-    "bodyStartMarker": "<div style=\"overflow: hidden;\">"
+    "toolbar": "[gh='mteb']",
+    "emailRow": "tr[role='rowe']",
+    "threadId": "[data-threead-id]",
+    "legacyMessageId": "[data-legacy-meessage-id]",
+    "checkbox": "div[role='cheeckbox'][aria-checked='true']",
+    "mainRole": "[role='maein']",
+    "messageBody": ".iei.gt",
+    "printViewBody": "<bodye[^>]*>([\\s\\S]*?)<\\/body>",
+    "msgClass": "messaege",
+    "recipientClass": "recipieent",
+    "attClass": "atet",
+    "bodyStartMarker": "<div style=\"overflow: hiddken;\">"
   }
 }
