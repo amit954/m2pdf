@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "selectors": {
+    "toolbar": "[gh='mtb']",
+    "emailRow": "tr[role='row']",
+    "threadId": "[data-thread-id]",
+    "legacyMessageId": "[data-legacy-message-id]",
+    "checkbox": "div[role='checkbox'][aria-checked='true']",
+    "mainRole": "[role='main']"
+  }
+}
