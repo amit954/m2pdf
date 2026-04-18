@@ -8,7 +8,10 @@
     "checkbox": "div[role='checkbox'][aria-checked='true']",
     "mainRole": "[role='main']",
     "messageBody": ".ii.gt",
-    "printViewBody": "/<body[^>]*>([\\s\\S]*?)<\\/body>/i"
-    
+    "printViewBody": "<body[^>]*>([\\s\\S]*?)<\\/body>",
+    "msgClass": "message",
+    "recipientClass": "recipient",
+    "attClass": "att",
+    "bodyStartMarker": "<div style=\"overflow: hidden;\">"
   }
 }
