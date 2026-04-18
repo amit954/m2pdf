@@ -6,6 +6,9 @@
     "threadId": "[data-thread-id]",
     "legacyMessageId": "[data-legacy-message-id]",
     "checkbox": "div[role='checkbox'][aria-checked='true']",
-    "mainRole": "[role='main']"
+    "mainRole": "[role='main']",
+    "messageBody": ".ii.gt",
+    "printViewBody": "/<body[^>]*>([\\s\\S]*?)<\\/body>/i"
+    
   }
 }
