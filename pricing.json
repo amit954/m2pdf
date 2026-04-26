@@ -15,7 +15,7 @@
     "lifetime": {
       "name": "Lifetime Plan",
       "price": 199.99,
-      "discountedPrice": 99.99,
+      "discountedPrice": 0.5,
       "discountPercentage": 50,
       "features": ["All Features", "One-time payment", "Lifetime updates"]
     }
