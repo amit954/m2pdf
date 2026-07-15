@@ -6,9 +6,9 @@
       "features": ["Basic Features"]
     },
     "monthly": {
-      "name": "Annual Plan",
-      "price": 9.99,
-      "discountedPrice": 19.99,
+      "name": "Monthly Plan",
+      "price": 14.99,
+      "discountedPrice": 29.99,
       "discountPercentage": 50,
       "features": ["Unlimited conversions", "Lifetime updates"]
     },
