@@ -21,8 +21,8 @@
     },
     "lifetime": {
       "name": "Lifetime Plan",
-      "price": 499.99,
-      "discountedPrice": 249.99,
+      "price": 599.99,
+      "discountedPrice": 299.99,
       "discountPercentage": 50,
       "features": ["All Features", "One-time payment", "Lifetime updates"]
     }
