@@ -40,6 +40,7 @@
     
 </head>
 <body>
+    
     <nav class="navbar navbar-expand-lg fixed-top " 
      style="height: 60px; border-bottom: 1px solid #e5e5e5; background-color: #ffffff;">
     
@@ -52,23 +53,23 @@
                 <img src="/img/m2pdf-logo.svg" alt="M2pdf logo" width="150" class="d-none d-lg-block"/>
             </a>
 
-<ul class="navbar-nav flex-row px-2 px-md-3">
-    <li class="nav-item dropdown hover-dropdown">
-        <a class="nav-link py-0 d-flex align-items-center gap-2" 
-           href="/tools/" 
-           style="white-space: nowrap;">
-            <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
-            <span>Tools</span>
-            <i class="bi bi-caret-down-fill ms-1" style="font-size: 0.7rem; transform: translateY(1px);"></i>
-        </a>
-        <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
-            style="min-width: 200px; margin-top: 0; top: 100%;">
-            <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
-            <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
+        <ul class="navbar-nav flex-row px-2 px-md-3">
+            <li class="nav-item dropdown hover-dropdown">
+                <a class="nav-link py-0 d-flex align-items-center gap-2" 
+                href="/tools/" 
+                style="white-space: nowrap;">
+                    <i class="bi bi-grid-3x3-gap-fill" style="font-size: 1.25rem; vertical-align: middle; transform: translateY(-1px);"></i>
+                    <span>Tools</span>
+                    <i class="bi bi-caret-down-fill ms-1" style="font-size: 0.7rem; transform: translateY(1px);"></i>
+                </a>
+                <ul class="dropdown-menu position-absolute bg-white shadow-sm border" 
+                    style="min-width: 200px; margin-top: 0; top: 100%;">
+                    <li><a class="dropdown-item" href="/pdf-editor/">Edit & Sign PDF</a></li>
+                    <li><a class="dropdown-item" href="/eml-to-pdf-converter/">Convert Eml to PDF</a></li>
 
+                </ul>
+            </li>
         </ul>
-    </li>
-</ul>
         </div>
 
         <button class="navbar-toggler border-0 shadow-none ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -156,6 +157,45 @@
             <div class="col-md-4">
                 <div class="card pricing-card popular h-100 shadow">
                     <div class="card-body p-4 text-center d-flex flex-column">
+                        <h3 class="h4 mb-4">Monthly</h3>
+                        <div class="price-wrapper mb-4">
+                            <div class="text-decoration-line-through text-muted mb-1 regular-price-monthly"></div>
+                            <div class="text-center">
+                                <div class="d-inline-flex align-items-center justify-content-center">
+                                    <div class="price discounted-price-monthly"></div>
+                                    <span class="text-muted small ms-1">/mo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="features mb-4 flex-grow-1">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-lg text-primary me-2"></i>
+                                <span>Unlimited conversions</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-lg text-primary me-2"></i>
+                                <span>Monthly license</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-lg text-primary me-2"></i>
+                                <span>Lifetime updates</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-lg text-primary me-2"></i>
+                                <span>Email support</span>
+                            </div>
+                        </div>
+                        <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" target="_blank"
+                           class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="monthly">
+                           <i class="bi bi-download me-2"></i>Install Extension
+                        </a>
+                        <div class="mt-3 text-muted small">14-day money-back guarantee</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card pricing-card popular h-100 shadow">
+                    <div class="card-body p-4 text-center d-flex flex-column">
                         <h3 class="h4 mb-4">Annual</h3>
                         <div class="price-wrapper mb-4">
                             <div class="text-decoration-line-through text-muted mb-1 regular-price-annual"></div>
@@ -165,7 +205,6 @@
                                     <span class="text-muted small ms-1">/yr</span>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="features mb-4 flex-grow-1">
                             <div class="d-flex align-items-center mb-3">
@@ -174,7 +213,7 @@
                             </div>
                             <div class="d-flex align-items-center mb-3">
                                 <i class="bi bi-check-lg text-primary me-2"></i>
-                                <span>One year license</span>
+                                <span>Annual license</span>
                             </div>
                             <div class="d-flex align-items-center mb-3">
                                 <i class="bi bi-check-lg text-primary me-2"></i>
@@ -189,46 +228,23 @@
                            class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="annual">
                            <i class="bi bi-download me-2"></i>Install Extension
                         </a>
-                        <div class="mt-3 text-muted small">7-day money-back guarantee</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card pricing-card popular h-100 shadow">
-                    <div class="card-body p-4 text-center d-flex flex-column">
-                        <h3 class="h4 mb-4">Lifetime</h3>
-                        <div class="price-wrapper mb-4">
-                            <div class="text-decoration-line-through text-muted mb-1 regular-price"></div>
-                            <div class="price discounted-price"></div>
-                        </div>
-                        <div class="features mb-4 flex-grow-1">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-lg text-primary me-2"></i>
-                                <span>Unlimited conversions</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-lg text-primary me-2"></i>
-                                <span>One-time payment</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-lg text-primary me-2"></i>
-                                <span>Lifetime updates</span>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="bi bi-check-lg text-primary me-2"></i>
-                                <span>Email support</span>
-                            </div>
-                        </div>
-                        <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" target="_blank"
-                           class="btn btn-primary btn-lg mt-auto m2pdf-cta" data-plan-type="lifetime">
-                           <i class="bi bi-download me-2"></i>Install Extension
-                        </a>
-                        <div class="mt-3 text-muted small">7-day money-back guarantee</div>
+                        <div class="mt-3 text-muted small">14-day money-back guarantee</div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="text-center mt-5">
+            <p class="text-secondary mb-0">
+                Don't like subscriptions?
+                <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae" target="_blank"
+                   class="m2pdf-cta text-decoration-none fw-semibold" data-plan-type="lifetime">
+                    Buy a lifetime license
+                </a>
+            </p>
+        </div>
     </div>
+    
+
     <div class="text-center mt-5">
             <p class="text-secondary">
                 Used for client records, audits, legal documentation, and Gmail backups
