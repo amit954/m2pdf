@@ -7,8 +7,8 @@
     },
     "monthly": {
       "name": "Monthly Plan",
-      "price": 14.99,
-      "discountedPrice": 29.99,
+      "price": 29.99,
+      "discountedPrice": 14.99,
       "discountPercentage": 50,
       "features": ["Unlimited conversions", "Lifetime updates"]
     },
@@ -32,6 +32,5 @@
     "tagline": "🎉 Limited Time Offer!",
     "endDate": "",
     "isActive": true
-  },
-  "lastUpdated": "2026-05-01"
+  }
 }
