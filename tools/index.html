@@ -30,13 +30,18 @@
     
 
       
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2NFQ4Q1DM2"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-2NFQ4Q1DM2');
-    </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2NFQ4Q1DM2"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2NFQ4Q1DM2', {
+            'linker': { 'domains': ['m2pdf.com', 'payment.m2pdf.com'] }
+        });
+        gtag('config', 'AW-18107409428', {
+            'linker': { 'domains': ['m2pdf.com', 'payment.m2pdf.com'] }
+        });
+        </script>
     
 </head>
 <body>
