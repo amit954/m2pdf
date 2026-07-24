@@ -3,9 +3,9 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Oops! The page you are looking for does not exist. Please check the URL or return to the homepage.">
-    <title>Page Not Found | M2pdf</title>
-    <link rel="canonical" href="https://m2pdf.com/404.html" />
+    <meta name="description" content="Exactly what M2pdf sends, stores, and never touches. How local PDF conversion works inside your browser.">
+    <title>Security & Data Privacy | M2pdf</title>
+    <link rel="canonical" href="https://m2pdf.com/security/" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -15,7 +15,16 @@
     <link rel="manifest" href="/favicon/site.webmanifest" />
         
     
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Security & Data Privacy">
+    <meta property="og:description" content="Exactly what M2pdf sends, stores, and never touches. How local PDF conversion works inside your browser.">
+    <meta property="og:image" content="https://m2pdf.com/img/m2pdf_og_img.jpg">
     
+    
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Security & Data Privacy">
+    <meta name="twitter:description" content="Exactly what M2pdf sends, stores, and never touches. How local PDF conversion works inside your browser.">
     
     <meta name="yandex-verification" content="ae46d6e59cce9f47" />
     
@@ -124,14 +133,96 @@
 </nav>
     
     
-<!-- 404 Section -->
-<section class="py-5 bg-light">
-    <div class="container text-center py-5">
-        <h1 class="display-4 mb-3">404 - Page Not Found</h1>
-        <p class="lead mb-4">Oops! The page you are looking for does not exist.</p>
-        <a href="/" class="btn btn-primary">Return to Homepage</a>
-    </div>
+<!--
+  BEFORE PUBLISHING:
+  1. [FREE_TIER]     - number of free conversions
+  2. [SUPPORT_EMAIL] - contact address
+  3. [LAST_UPDATED]  - publish date
+-->
 
+<section class="main-section">
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="text-center mb-5">
+            <h1 class="display-4 text-center mb-3">Security & Data Privacy</h1>
+            <p class="text-secondary text-center">What M2pdf sends, stores, and never touches</p>
+            </div>
+            <p class="lead mb-5">M2pdf converts your email on your own computer. Nothing about the message, its body, subject, recipients or attachments, is uploaded to us or to anyone else. This page sets out what does leave your device, what never does, and how local PDF conversion works inside your browser</p>
+
+            <h2>What Leaves Your Device</h2>
+            <ul>
+                <li>Your Google account email address, so we can check which plan you are on</li>
+                <li>A count of conversions you have run. We record how many, never which ones</li>
+                <li>Payment details, if you buy a licence. We never see or store your card details</li>
+                <li>Survey answers, if you choose to submit the form</li>
+            </ul>
+
+            <h2>What Never Leaves Your Device</h2>
+            <ul>
+                <li>Email content</li>
+                <li>Email subject lines</li>
+                <li>Sender or recipient addresses</li>
+                <li>Email attachments</li>
+                <li>The PDFs the extension produces</li>
+                <li>Your Gmail search terms, labels, or folder names</li>
+                <li>Contact lists</li>
+                <li>Browser history</li>
+                <li>Personal information beyond what is listed above</li>
+            </ul>
+
+            <h2>How a Conversion Works</h2>
+            <p>Four steps, all of them inside Chrome on your computer:</p>
+            <ul>
+                <li>M2pdf asks Gmail for the message, using the session you are already logged into. The request goes from your machine to Google directly and does not pass through us</li>
+                <li>The message is laid out for print in a hidden tab. Scripts in the email are stripped before anything is rendered</li>
+                <li>Chrome's own print engine makes the PDF, which is what gives you real selectable, searchable text rather than a flat image</li>
+                <li>Attachments are added and the file is saved to your Downloads folder. Nothing is staged on a server along the way</li>
+            </ul>
+
+            <h2>The "Debugging" Banner During Export</h2>
+            <p>Chrome displays a bar reading "M2pdf started debugging this browser" while a PDF is being generated. This is how Chrome labels access to its debugger. It is what lets M2pdf export a hundred emails automatically, without asking you to click Save a hundred times.</p>
+
+            <h2>Which Websites M2pdf Can Reach</h2>
+            <p>Since M2pdf uses Chrome's debugger, Chrome grants it broad access to read all websites.</p>
+            <p>What M2pdf actually touches is your Gmail tab and our own website for licence purchase. It does not read any other websites you visit and nothing from them is sent anywhere.</p>
+
+            <h2>What Signing In With Google Gives Us</h2>
+            <p>Your email address, and nothing else. It tells us which licence you hold. We do not request access to the Gmail API, so we have no way to reach your mail from our end.</p>
+
+            <h2>Stored on Your Computer</h2>
+            <ul>
+                <li>Your export settings: paper size, margins, file naming, folder structure</li>
+                <li>Your licence status and remaining free conversions</li>
+                <li>Layout rules for reading Gmail's print view</li>
+                <li>A temporary working copy of the PDF while it is being built, deleted once the file is saved</li>
+            </ul>
+
+            <h2>Stored on Our Servers</h2>
+            <ul>
+                <li>Your account email address</li>
+                <li>Which plan you are on and when it expires</li>
+                <li>A running count of conversions, for the free tier</li>
+                <li>Your survey answers, if you sent them</li>
+            </ul>
+
+            <h2>Questions?</h2>
+            <p>Write to us at contact@m2pdf.com if you have any security related questions.</p>
+
+            <div class="text-center mt-5">
+                <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
+                   target="_blank" rel="noopener"
+                   class="btn btn-dark btn-lg rounded-pill px-4 py-2 d-inline-flex align-items-center shadow-sm">
+                    <img src="/img/chrome-logo.svg" alt="" width="20" height="20" class="me-2" aria-hidden="true">
+                    Add to Chrome
+                </a>
+                <p class="small text-muted mt-3 mb-0">20 free conversions, no card required.</p>
+            </div>
+
+            <div class="mt-5 pt-5 text-center text-muted">
+                <p>Last updated: July 24, 2026</p>
+            </div>
+        </div>
+    </div>
 </section> 
     
     <footer class="hideable py-5 bg-dark text-white ">
