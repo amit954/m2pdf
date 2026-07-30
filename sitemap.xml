@@ -1,100 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-
-<url>
-  <loc>https://m2pdf.com/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/tools/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/pdf-editor/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/save-gmail-as-pdf/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/gmail-backup/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/best-cloudhq-alternative/</loc>
-  <lastmod>2026-07-18T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/about/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/pricing/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/contact/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/blog/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/how-to-use/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/terms/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/privacy/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/security/</loc>
-  <lastmod>2026-07-24T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/refund/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/blog/ultimate-guide-to-email-documentation-for-tax-audits/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://m2pdf.com/blog/how-to-save-emails-as-pdf/</loc>
-  <lastmod>2026-04-15T11:43:03+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-
+  <url>
+       <loc>https://m2pdf.com/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/tools/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/pdf-editor/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/legal/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/accounting/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/hr/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/real-estate/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/agencies/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/save-gmail-as-pdf/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/gmail-backup/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/about/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/pricing/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/contact/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/blog/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/how-to-use/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/best-cloudhq-alternative/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/terms/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/privacy/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/security/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/refund/</loc>
+       <lastmod>2026-07-30T21:09:39+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/blog/ultimate-guide-to-email-documentation-for-tax-audits/</loc>
+       <lastmod>2025-02-01T00:00:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/blog/how-to-save-emails-as-pdf/</loc>
+       <lastmod>2025-02-14T00:00:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
 </urlset>
