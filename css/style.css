@@ -638,3 +638,12 @@ footer a {
         color: #7C3AED !important;
     border: 2px solid #7C3AED;
 }
+
+.custom-hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.custom-hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    border-color: #dee2e6!important;
+}
