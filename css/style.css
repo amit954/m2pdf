@@ -647,3 +647,65 @@ footer a {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     border-color: #dee2e6!important;
 }
+.site-footer {
+    background: #141414;
+    color: #fff;
+    border-top: 3px solid var(--bs-primary, #7C3AED);
+}
+.site-footer h6.footer-heading {
+    font-family: var(--font-heading, inherit);
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: #fff;
+}
+.site-footer .footer-links a,
+.site-footer .footer-legal a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.site-footer .footer-links a {
+    font-size: .875rem;
+    line-height: 1.4;
+}
+.site-footer .footer-links a:hover,
+.site-footer .footer-legal a:hover {
+    color: #fff;
+}
+.site-footer .footer-tagline {
+    color: #9ca3af;
+    max-width: 32ch;
+}
+.site-footer .footer-brand {
+    font-family: var(--font-heading, inherit);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.02em;
+}
+.site-footer .footer-logo-icon {
+    height: 32px;
+    width: auto;
+    /* If the icon art is dark and disappears on the dark footer,
+       uncomment the next line to render it white: */
+    /* filter: brightness(0) invert(1); */
+}
+.site-footer .footer-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, .18);
+    width: 100%;
+    opacity: 1;
+    margin-left: 0;
+    margin-right: 0;
+}
+.site-footer .footer-links a .bi {
+    opacity: .55;
+}
+.site-footer .footer-social a {
+    color: #9ca3af;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: color .2s ease;
+}
+.site-footer .footer-social a:hover {
+    color: #fff;
+}

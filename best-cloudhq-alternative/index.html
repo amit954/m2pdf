@@ -553,73 +553,89 @@
   .bg-primary-subtle { background-color: #EBF4FF !important; }
 </style> 
     
-    <footer class="hideable py-5 bg-dark text-white ">
+    <footer class="site-footer hideable py-5 ">
     <div class="container">
-        <div class="row">
+        <div class="row gy-5">
 
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <a href="/">
-                    <h5 class="mb-3">M2pdf</h5>
+            <!-- Brand + CTA -->
+            <div class="col-lg-4">
+                <a href="/" class="d-inline-flex align-items-center gap-2 mb-3 text-decoration-none">
+                    <img src="/img/m2pdf-logo-copy.svg" alt="M2pdf" class="footer-logo-icon">
+                    <span class="footer-brand h4 mb-0">M2pdf</span>
                 </a>
-                <p>
-                    Convert Gmail emails to clean PDFs with attachments. Export by label, sender, or search. Works locally for full privacy.
+                <p class="footer-tagline mb-4">
+                    Convert Gmail emails to clean PDFs with attachments. Export by label, sender, or search, all processed locally in your browser for full privacy.
                 </p>
-            </div>
-
-            <div class="col-lg-2 mb-4 mb-lg-0">
-                <h6 class="text-uppercase small mb-3">Company</h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/about/" class="text-decoration-none">About</a></li>
-                    <li class="mb-2"><a href="/pricing/" class="text-decoration-none">Pricing</a></li>
-                    <li class="mb-2"><a href="/solutions/" class="text-decoration-none">Solutions</a></li>
-                    <li class="mb-2"><a href="/contact/" class="text-decoration-none">Contact</a></li>
-                    <li class="mb-2"><a href="/blog/" class="text-decoration-none">Blog</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 mb-4 mb-lg-0">
-                <h6 class="text-uppercase small mb-3">Tools</h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/pdf-editor/" class="text-decoration-none">Edit & Sign PDF</a></li>
-                    <li class="mb-2"><a href="/eml-to-pdf-converter/" class="text-decoration-none">EML to PDF Converter</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2 mb-4 mb-lg-0">
-                <h6 class="text-uppercase small mb-3">Guides</h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/save-gmail-as-pdf/" class="text-decoration-none">Save Gmail as PDF</a></li>
-                    <li class="mb-2"><a href="/gmail-backup/" class="text-decoration-none">Gmail Backup</a></li>
-                    <li class="mb-2"><a href="/how-to-use/" class="text-decoration-none">How to Use</a></li>
-                    <li class="mb-2"><a href="/best-cloudhq-alternative/" class="text-decoration-none">Best cloudHQ alternative</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-2">
-                <h6 class="text-uppercase small mb-3">Get Started</h6>
                 <a href="https://chromewebstore.google.com/detail/m2pdf-email-to-pdf-conver/ogbejidkbpdlngcpffeaifjemknohdae"
-                   target="_blank"
+                   target="_blank" rel="noopener"
                    class="chrome-store-btn bg-white d-inline-flex align-items-center">
                     <img src="/img/chrome-logo.svg" alt="Chrome" width="24" height="24">
                     Add to Chrome
                 </a>
-                <p class="small text-muted mt-2">
-                    No login required. Runs locally in your browser.
-                </p>
+                <div class="footer-social d-flex gap-3 mt-3">
+                    <a href="https://www.youtube.com/@M2pdf" aria-label="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
+                    <a href="https://www.facebook.com/m2pdf" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+                    <a href="https://x.com/m2pdf" aria-label="X" target="_blank" rel="noopener"><i class="bi bi-twitter-x"></i></a>
+                </div>
             </div>
 
+            <div class="col-lg-8">
+                <div class="row gy-4 footer-links">
+
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading text-uppercase small mb-3">Solutions</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="/solutions/legal/">Legal</a></li>
+                            <li class="mb-2"><a href="/solutions/accounting/">Accounting</a></li>
+                            <li class="mb-2"><a href="/solutions/hr/">HR &amp; Recruiting</a></li>
+                            <li class="mb-2"><a href="/solutions/real-estate/">Real Estate</a></li>
+                            <li class="mb-2"><a href="/solutions/agencies/">Agencies</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading text-uppercase small mb-3">Company</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="/about/">About</a></li>
+                            <li class="mb-2"><a href="/pricing/">Pricing</a></li>
+                            <li class="mb-2"><a href="/contact/">Contact</a></li>
+                            <li class="mb-2"><a href="/blog/">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading text-uppercase small mb-3">Tools</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="/pdf-editor/">Edit &amp; Sign PDF</a></li>
+                            <li class="mb-2"><a href="/eml-to-pdf-converter/">EML to PDF Converter</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading text-uppercase small mb-3">Guides</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="/save-gmail-as-pdf/">Save Gmail as PDF</a></li>
+                            <li class="mb-2"><a href="/gmail-backup/">Gmail Backup</a></li>
+                            <li class="mb-2"><a href="/how-to-use/">How to Use</a></li>
+                            <li class="mb-2"><a href="/best-cloudhq-alternative/">Best cloudHQ Alternative</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-   
-        <div class="row align-items-center mt-4">
+        <hr class="footer-divider my-4">
+
+        <div class="row align-items-center g-3">
             <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0">© <span id="year"></span> M2pdf. All rights reserved.</p>
+                <p class="mb-0 small footer-tagline">&copy; <span id="year"></span> M2pdf. All rights reserved.</p>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a href="/terms/" class="text-decoration-none me-3">Terms</a>
-                <a href="/privacy/" class="text-decoration-none me-3">Privacy</a>
-                <a href="/security/" class="text-decoration-none me-3">Security</a>
-                <a href="/refund/" class="text-decoration-none">Refund</a>
+            <div class="col-md-6 text-center text-md-end footer-legal">
+                <a href="/terms/" class="me-3">Terms</a>
+                <a href="/privacy/" class="me-3">Privacy</a>
+                <a href="/security/" class="me-3">Security</a>
+                <a href="/refund/">Refund</a>
             </div>
         </div>
     </div>
