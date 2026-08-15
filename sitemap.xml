@@ -4,145 +4,145 @@
   <url>
        <loc>https://m2pdf.com/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>1.0000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/tools/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/pdf-editor/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/legal/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/accounting/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/hr/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/real-estate/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/solutions/agencies/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>weekly</changefreq>
+       <priority>1.0</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/save-gmail-as-pdf/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <lastmod>2026-08-16T00:00:00+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.9</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/gmail-backup/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/about/</loc>
+       <loc>https://m2pdf.com/tools/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/pdf-editor/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/eml-to-pdf-converter/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/pricing/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/contact/</loc>
+       <loc>https://m2pdf.com/solutions/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.7</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/blog/</loc>
+       <loc>https://m2pdf.com/solutions/legal/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/how-to-use/</loc>
+       <loc>https://m2pdf.com/solutions/accounting/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/hr/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/real-estate/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/solutions/agencies/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/best-cloudhq-alternative/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.7</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/terms/</loc>
+       <loc>https://m2pdf.com/how-to-use/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>monthly</changefreq>
+       <priority>0.7</priority>
   </url>
   <url>
-       <loc>https://m2pdf.com/privacy/</loc>
+       <loc>https://m2pdf.com/blog/</loc>
        <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/security/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
-  </url>
-  <url>
-       <loc>https://m2pdf.com/refund/</loc>
-       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.8000</priority>
+       <changefreq>weekly</changefreq>
+       <priority>0.6</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/blog/ultimate-guide-to-email-documentation-for-tax-audits/</loc>
        <lastmod>2025-02-01T00:00:00+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.6400</priority>
+       <changefreq>yearly</changefreq>
+       <priority>0.6</priority>
   </url>
   <url>
        <loc>https://m2pdf.com/blog/how-to-save-emails-as-pdf/</loc>
        <lastmod>2025-02-14T00:00:00+00:00</lastmod>
-       <changefreq>daily</changefreq>
-       <priority>0.6400</priority>
+       <changefreq>yearly</changefreq>
+       <priority>0.6</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/about/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.5</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/contact/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.5</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/terms/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.3</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/privacy/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.3</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/security/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.3</priority>
+  </url>
+  <url>
+       <loc>https://m2pdf.com/refund/</loc>
+       <lastmod>2026-07-30T21:36:25+00:00</lastmod>
+       <changefreq>yearly</changefreq>
+       <priority>0.3</priority>
   </url>
 </urlset>
